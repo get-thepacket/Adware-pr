@@ -12,11 +12,12 @@
 ### Screen Owner Interface
 
 - Register new screen owners.
-- Functionality: Add/ Delete screens.
+- Functionality: Add/Delete screens.
 - Assign unique tokens for each new screen.
 - Handle geo-location of screen.
 
 ### Misc
 
 - Calculate total cost to display ad.
-- Interactive GUI for geo-location of screen.
+- Interactive GUI for geo-location of screens.
+- Create Machine Learning models to dynamically predict prices.

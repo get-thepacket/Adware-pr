@@ -15,9 +15,9 @@ def profile(request):
     """
     :param request: reqeest
     :return: Profile page
-    Profile page
+    Page to redirect to home page after successful login attempt
     """
-    return render(request, 'registration/profile.html', {'username': request.user})
+    return redirect('/')
 
 
 def signup(request):

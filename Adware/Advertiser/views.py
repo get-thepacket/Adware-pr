@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def index(request):
+    print("asdfadsf")
+    return render(request, "Advertiser/index.html")

@@ -10,6 +10,7 @@ class Advertiser(models.Model):
 
 
 class AdMedia(models.Model):
+    id = models.AutoField(primary_key=True)
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     file_name = models.CharField(max_length=30)
     media = models.FileField()

@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import AdMediaForm
 from .models import AdMedia
 
-
 """
 Note: put login required decorator for all functions
 """
@@ -16,6 +15,9 @@ def index(request):
 
 @login_required
 def new_adv(request):
+    """
+    Function for uploading new AdMedia to server.
+    """
     if request.method == 'POST':
         obj = AdMedia()
         form = AdMediaForm(request.POST, request.FILES, instance=obj)
@@ -27,3 +29,11 @@ def new_adv(request):
             return redirect('../')
 
     return render(request, "Advertiser/new_ad.html", {'form': AdMediaForm()})
+
+
+def view_media(request):
+    """
+    Function to view all uploaded media to the server.
+    """
+    user_media = AdMedia.objects.filter(username=request.user)
+    return render(request, "Advertiser/view_media.html", {'AdMedia': user_media})

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Ads</title>
+</head>
+<body>
+    {% for i in AdMedia %}
+        <img src="/media/{{ i.media }}">
+        <h5>{{ i.file_name }}</h5>
+    {% endfor %}
+</body>
+</html>

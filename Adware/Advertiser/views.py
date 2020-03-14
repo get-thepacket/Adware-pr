@@ -30,7 +30,7 @@ def new_adv(request):
 
     return render(request, "Advertiser/new_ad.html", {'form': AdMediaForm()})
 
-
+@login_required
 def view_media(request):
     """
     Function to view all uploaded media to the server.

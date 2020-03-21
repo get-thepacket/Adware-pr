@@ -16,9 +16,8 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-
-from . import settings
 from . import views
+from Advertiser.views import media
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +27,6 @@ urlpatterns = [
     path('accounts/signup', views.signup),
     path('adv', include('Advertiser.urls')),
     path('scr', include('Screens.urls')),
+    path('media/<media_name>', media),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

@@ -66,3 +66,14 @@ def media(request, media_name):
     img = open(settings.BASE_DIR+'/media/'+media_name,'rb')
 
     return HttpResponse(img.read(), content_type="image/jpeg")
+
+
+@login_required
+def screen_select(request, ad_id):
+    """
+    function implements screen selections portal
+    ad_id from get request
+    todo: user interactive page
+    todo: geo-location based selection
+    """
+    return HttpResponse(str(ad_id))

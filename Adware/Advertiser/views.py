@@ -14,7 +14,7 @@ Note: put login required decorator for all functions
 @login_required
 def index(request):
 
-    return render(request, "Advertiser/index.html")
+    return render(request, "Advertiser/index.html", {'user':request.user})
 
 
 @login_required

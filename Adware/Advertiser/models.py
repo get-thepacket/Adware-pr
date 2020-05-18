@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from Screens.models import Screens
 
 
 class Advertiser(models.Model):
@@ -15,4 +16,8 @@ class AdMedia(models.Model):
     file_name = models.CharField(max_length=30)
     media = models.FileField()
 
+
+class DisplaysAd(models.Model):
+    screen = models.ForeignKey(Screens, on_delete=models.CASCADE)
+    ad = models.ForeignKey(AdMedia, on_delete=models.CASCADE)
 

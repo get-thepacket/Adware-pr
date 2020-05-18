@@ -45,5 +45,7 @@
 	- ScreenID(Auto-Primary Key)
 	- VendorEmail(Foreign Key)
 	- Address 
-	- CurAddIDs (can be empty initially).
 	- Price per sec of the add. (to be decided how it will vary n who will set this)
+- (Screen , Advertisement)  Table
+    - Primary key (screen_id,Ad_id)
+    - (screen_id,Ad_id) -> Screen(id) displays ad (Ad_id)

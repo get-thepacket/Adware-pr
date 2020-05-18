@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import UserForm
+from .models import AppUser
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.db.utils import IntegrityError
@@ -20,7 +21,7 @@ def profile(request):
     return redirect('/')
 
 
-def signup(request):
+def signup(request, type):
     """
     :param request: request
     :return: Signup Form / Redirect to login
@@ -35,9 +36,15 @@ def signup(request):
             print(form.cleaned_data)
             obj.set_password(form.cleaned_data['password1'])
             try:
-
                 obj.save()
+                o1=AppUser()
+                o1.User=obj
+                o1.type=type
+                o1.save()
+                print(AppUser.objects.all())
             except IntegrityError:
+                print('triggered')
+                # Invoked in case of redundant credentials
                 return redirect('login')
             return redirect('login')
     return render(request, 'registration/signup.html', {'form': form})

@@ -8,12 +8,43 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
+    info=""
+    if request.method =='POST':
+        obj=User()
+        form = UserForm(request.POST)
+        info="some error occured"
+        print(form.is_valid())
+
+        if True:
+            print(form.cleaned_data)
+            email = form.cleaned_data['email']
+            type = form.cleaned_data['type']
+            try:
+
+                UserExist = User.objects.get(username=email)
+            except User.DoesNotExist:
+                UserExist=None
+            if UserExist:
+                UserType=[i.type for i in AppUser.objects.filter(User=UserExist)]
+                if type in UserType:
+                    info="User Already Exist"
+                else:
+                    info='User with different role exist'
+                    # Multiple roles will be continues
+            else:
+                obj.username = email
+                print(form.cleaned_data)
+                obj.set_password(form.cleaned_data['password1'])
+                obj.save()
+                o1=AppUser()
+                o1.type=type
+                o1.User = obj
+                o1.save()
+                info="user created successfully"
     formAdvertiser = UserForm()
     formVendor = UserForm()
-    formAdvertiser.type = 'Advertiser'
-    formVendor.type = 'Vendor'
 
-    return render(request, "index1.html",{'f1':formAdvertiser, 'f2':formVendor})
+    return render(request, "index1.html",{'f1':formAdvertiser, 'f2':formVendor,'info':info})
 
 
 @login_required

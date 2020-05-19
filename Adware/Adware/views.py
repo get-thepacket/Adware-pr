@@ -44,7 +44,7 @@ def index(request):
     formAdvertiser = UserForm()
     formVendor = UserForm()
 
-    return render(request, "index1.html",{'f1':formAdvertiser, 'f2':formVendor,'info':info})
+    return render(request, "index.html",{'f1':formAdvertiser, 'f2':formVendor,'info':info})
 
 
 @login_required

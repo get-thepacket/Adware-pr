@@ -1,5 +1,12 @@
-# TODO
+## TODO
+---
 
-- Link advertisement to screens
-- work on the screen application
-- interactive UI
+- [ ] Basic design for payment checkout and purchasing screen for an Ad.
+- [ ] UI to show screen location.
+- [ ] ML( if required ) for pricing.
+- [ ] Functionality for Pi to access the required Advertisements.
+- [ ] Link advertisement to screens
+- [ ] work on the screen application
+- [ ] interactive UI
+
+please tick whatever is done and add more todo's as you have found.

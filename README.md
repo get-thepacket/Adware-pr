@@ -51,9 +51,4 @@
     - (screen_id,Ad_id) -> Screen(id) displays ad (Ad_id)
 
 
-## TODO
-
-- Basic design for payment checkout and purchasing screen for an Ad.
-- UI to show screen location.
-- ML( if required ) for pricing.
-- Functionality for Pi to access the required Advertisements.
+#### TODO can be found in todo.md

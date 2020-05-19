@@ -8,7 +8,12 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    return render(request, "index.html")
+    formAdvertiser = UserForm()
+    formVendor = UserForm()
+    formAdvertiser.type = 'Advertiser'
+    formVendor.type = 'Vendor'
+
+    return render(request, "index1.html",{'f1':formAdvertiser, 'f2':formVendor})
 
 
 @login_required

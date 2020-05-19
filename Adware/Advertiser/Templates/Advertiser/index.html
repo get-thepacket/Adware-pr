@@ -1,29 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Advertise</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends 'Advertiser/base.html' %}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Adware</a>
-    <div class="collapse navbar-collapse " id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/adv/view">My Advertisements</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/adv/new">Create Advertisement</a>
-            </li>
+{% block content %}
+<section id="services" class="services">
+      <div class="container">
 
-        </ul>
-        <button class="btn btn-outline-success" type="button">{{user}}</button>
-    </div>
-</nav>
-</body>
-</html>
+        <div class="section-title" data-aos="fade-up">
+          <h2>Welcome {{user}}</h2>
+          <p>Manage Your Advertisements</p>
+        </div>
+    <section id="more-services" class="more-services">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card" style='background-image: url("../static/assets/img/more-services-1.jpg");' data-aos="fade-up" data-aos-delay="100">
+              <div class="card-body">
+                <h5 class="card-title"><a href="/adv/view">My Advertisements</a></h5>
+                <p class="card-text">check your active advertisements</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+            <div class="card" style='background-image: url("../static/assets/img/more-services-2.jpg");' data-aos="fade-up" data-aos-delay="200">
+              <div class="card-body">
+                <h5 class="card-title"><a href="/adv/new">Create Advertisement</a></h5>
+                <p class="card-text">Wanna display one more add?. Here you go {{user}}</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4">
+            <div class="card" style='background-image: url("../static/assets/img/more-services-3.jpg");' data-aos="fade-up" data-aos-delay="100">
+              <div class="card-body">
+                <h5 class="card-title"><a href="/adv/subs">My Subscriptions</a></h5>
+                <p class="card-text">Manage your active subscriptions and if you don't have go for one</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End of Services Section -->
+{% endblock %}

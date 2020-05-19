@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'Screens',
     'Advertiser',
     'Adware',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_BACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

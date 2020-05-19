@@ -43,6 +43,7 @@ def index(request):
                 info="user created successfully"
     formAdvertiser = UserForm()
     formVendor = UserForm()
+    # print(formAdvertiser,formVendor,sep='\n')
 
     return render(request, "index.html",{'f1':formAdvertiser, 'f2':formVendor,'info':info})
 

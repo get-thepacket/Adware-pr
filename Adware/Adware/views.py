@@ -8,11 +8,11 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    info=""
-    if request.method =='POST':
-        obj=User()
+    info = ""
+    if request.method == 'POST':
+        obj = User()
         form = UserForm(request.POST)
-        info="some error occured"
+        info = "some error occured"
         print(form.is_valid())
 
         if True:
@@ -23,29 +23,27 @@ def index(request):
 
                 UserExist = User.objects.get(username=email)
             except User.DoesNotExist:
-                UserExist=None
+                UserExist = None
             if UserExist:
-                UserType=[i.type for i in AppUser.objects.filter(User=UserExist)]
+                UserType = [i.type for i in AppUser.objects.filter(User=UserExist)]
                 if type in UserType:
-                    info="User Already Exist"
+                    info = "User Already Exist"
                 else:
-                    info='User with different role exist'
+                    info = 'User with different role exist'
                     # Multiple roles will be continues
             else:
                 obj.username = email
                 print(form.cleaned_data)
                 obj.set_password(form.cleaned_data['password1'])
                 obj.save()
-                o1=AppUser()
-                o1.type=type
+                o1 = AppUser()
+                o1.type = type
                 o1.User = obj
                 o1.save()
-                info="user created successfully"
-    formAdvertiser = UserForm()
-    formVendor = UserForm()
-    # print(formAdvertiser,formVendor,sep='\n')
+                info = "user created successfully"
+    form = UserForm()
 
-    return render(request, "index.html",{'f1':formAdvertiser, 'f2':formVendor,'info':info})
+    return render(request, "index.html", {'f1': form, 'info': info})
 
 
 @login_required
@@ -74,9 +72,9 @@ def signup(request, type):
             obj.set_password(form.cleaned_data['password1'])
             try:
                 obj.save()
-                o1=AppUser()
-                o1.User=obj
-                o1.type=type
+                o1 = AppUser()
+                o1.User = obj
+                o1.type = type
                 o1.save()
                 print(AppUser.objects.all())
             except IntegrityError:

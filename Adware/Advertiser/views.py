@@ -13,8 +13,9 @@ Note: put login required decorator for all functions
 
 @login_required
 def index(request):
+    form = AdMediaForm()
 
-    return render(request, "Advertiser/index.html", {'user':request.user})
+    return render(request, "Advertiser/index.html", {'user':request.user,'f1':form})
 
 
 @login_required
@@ -22,7 +23,7 @@ def new_adv(request):
     """
     Function for uploading new AdMedia to server.
     """
-
+    print(request.method)
     if request.method == 'POST':
 
         obj = AdMedia()
@@ -35,7 +36,7 @@ def new_adv(request):
 
             obj.save()
 
-            return redirect('../')
+            return redirect('/adv')
 
     return render(request, "Advertiser/new_ad.html", {'form': AdMediaForm()})
 

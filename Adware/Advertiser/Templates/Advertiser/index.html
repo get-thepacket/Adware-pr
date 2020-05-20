@@ -2,6 +2,30 @@
 
 {% block content %}
 <section id="services" class="services">
+      <!-- New AdMedia form Modal Starts -->
+      <form enctype="multipart/form-data" action="/adv/new/" method="post">
+        {% csrf_token %}
+      <div class="modal" tabindex="-1" role="dialog" id="NewAd">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">New Advertisement</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {{f1}}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="Submit" class="btn btn-primary">Create Advertisement</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </form>
+      <!-- New AdMedia form Modal Ends -->
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
@@ -23,7 +47,7 @@
           <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
             <div class="card" style='background-image: url("../static/assets/img/more-services-2.jpg");' data-aos="fade-up" data-aos-delay="200">
               <div class="card-body">
-                <h5 class="card-title"><a href="/adv/new">Create Advertisement</a></h5>
+                <h5 class="card-title"><a href="" data-toggle="modal" data-target="#NewAd">Create Advertisement</a></h5>
                 <p class="card-text">Wanna display one more add?. Here you go {{user}}</p>
               </div>
             </div>

@@ -44,9 +44,16 @@ def index(request):
     form = UserForm()
     loginForm = LoginForm()
     user=''
+    roles=[]
+    roleURL = {}
+    roleURL['vendor']='/scr'
+    roleURL['advertiser']='/adv'
+
     if request.user.is_authenticated:
         user=request.user.username
-    return render(request, "index.html", {'f1': form, 'f2': LoginForm, 'info': info,'user':user})
+        roles=[i.type.lower() for i in AppUser.objects.filter(User=request.user)]
+        roles=[(i,roleURL[i]) for i in roles]
+    return render(request, "index.html", {'f1': form, 'f2': LoginForm, 'info': info,'user':user,'roles':roles})
 
 
 @login_required

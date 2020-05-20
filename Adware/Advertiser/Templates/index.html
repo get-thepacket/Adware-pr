@@ -64,7 +64,7 @@
             <a href='' data-toggle="modal" data-target="#LoginForm" >Login</a>
             {% endif %}
             {% if user %}
-            <a href="">{{user}}</a>
+            <a href="" data-toggle="modal" class="tooltip-test" title="View Profile" data-target="#UserProfile">{{user}}</a>
             {%endif%}
           </li>
         </ul>
@@ -81,8 +81,15 @@
         <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
           <h1 data-aos="fade-up">Grow your business reach with Adware</h1>
           <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented engineers making advertising easier</h2>
+          {% if not user %}
           <div data-aos="fade-up" data-aos-delay="800">
             <a href='' data-toggle="modal" data-target="#AdvertiserForm" class="btn-get-started scrollto">Sign Up</a>
+          </div>
+          {%endif%}
+          <div data-aos="fade-up" data-aos-delay="800">
+            {% for a,b in roles %}
+            <a href='{{b}}' class="tooltip-test btn btn-outline-primary" tabindex="-1" aria-disabled="true" title="Goto {{a}} Page">{{a}} Page</a>
+            {% endfor %}
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
@@ -94,11 +101,15 @@
   </section><!-- End Hero -->
 
   <!--Sign Up Form starts-->
-  <h3>{{info}}</h3>
+  {% if info %}
+  <div class="alert alert-success">
+  {{info}}
+  </div>
+  {% endif %}
   <form method="post">
       {%csrf_token%}
 
-  <div class="modal" tabindex="-1" role="dialog" id="AdvertiserForm">
+  <div class="modal fade" tabindex="-1" role="dialog" id="AdvertiserForm">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -155,7 +166,7 @@
   <form action="/accounts/login/" method="post">
       {%csrf_token%}
 
-  <div class="modal" tabindex="-1" role="dialog" id="LoginForm">
+  <div class="modal form" tabindex="-1" role="dialog" id="LoginForm">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -207,6 +218,31 @@
   </div>
   </form>
   <!--Login Form ends-->
+  <!-- Profile Section Modal starts here -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="UserProfile">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Profile Section</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <a href="#" class="btn btn-primary btn-lg active" role="button">
+          {{user}}
+        </a>
+        {% for a,b in roles %}
+          <a href='{{b}}' class="tooltip-test btn btn-outline-primary" tabindex="-1" aria-disabled="true" title="Goto {{a}} Page">{{a}}</a>
+        {% endfor %}
+
+        <div class="modal-footer">
+          <a href="/accounts/logout" class="btn btn-outline-danger">Logout</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Profile Section Modal Ends here -->
   <main id="main">
 
     <!-- ======= Clients Section ======= -->

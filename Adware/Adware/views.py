@@ -53,6 +53,7 @@ def index(request):
         user=request.user.username
         roles=[i.type.lower() for i in AppUser.objects.filter(User=request.user)]
         roles=[(i,roleURL[i]) for i in roles]
+    print(info)
     return render(request, "index.html", {'f1': form, 'f2': LoginForm, 'info': info,'user':user,'roles':roles})
 
 

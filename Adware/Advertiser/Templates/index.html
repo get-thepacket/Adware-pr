@@ -59,7 +59,14 @@
           <li><a href="#pricing">Pricing</a></li>
           <li><a href="#contact">Contact</a></li>
 
-          <li class="get-started"><a href="#about">Login</a></li>
+          <li class="get-started">
+            {% if not user %}
+            <a href='' data-toggle="modal" data-target="#LoginForm" >Login</a>
+            {% endif %}
+            {% if user %}
+            <a href="">{{user}}</a>
+            {%endif%}
+          </li>
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -144,7 +151,62 @@
   </div>
   </form>
   <!--Sign Up Form ends-->
+  <!--Login Form-->
+  <form action="/accounts/login/" method="post">
+      {%csrf_token%}
 
+  <div class="modal" tabindex="-1" role="dialog" id="LoginForm">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"><centre>Login</centre></h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- {{f1|crispy}} -->
+          <!-- <div class="row">
+            <div class="col-6">
+              {{ f1.first_name|as_crispy_field }}
+            </div>
+            <div class="col-6">
+              {{ f1.last_name|as_crispy_field }}
+            </div>
+          </div>
+          {{f1.email|as_crispy_field}}
+          <div class="row">
+            <div class="col-6">
+              {{ f1.password1|as_crispy_field }}
+            </div>
+            <div class="col-6">
+              {{ f1.password2|as_crispy_field }}
+            </div>
+          </div>
+          {{f1.type|as_crispy_field}}
+        </div> -->
+          <!--
+        <div class="form-row">
+          <div class="form-group col-md-6 mb-0">
+            {{ f1.first_name|as_crispy_field }}
+          </div>
+          <div class="form-group col-md-6 mb-0">
+            {{ f1.last_name|as_crispy_field }}
+          </div>
+        </div>
+        -->
+        {{f2.username | as_crispy_field}}
+        {{ f2.password|as_crispy_field }}
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </form>
+  <!--Login Form ends-->
   <main id="main">
 
     <!-- ======= Clients Section ======= -->

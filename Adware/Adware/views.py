@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserForm
+from .forms import UserForm, LoginForm
 from .models import AppUser
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -42,8 +42,11 @@ def index(request):
                 o1.save()
                 info = "user created successfully"
     form = UserForm()
-
-    return render(request, "index.html", {'f1': form, 'info': info})
+    loginForm = LoginForm()
+    user=''
+    if request.user.is_authenticated:
+        user=request.user.username
+    return render(request, "index.html", {'f1': form, 'f2': LoginForm, 'info': info,'user':user})
 
 
 @login_required

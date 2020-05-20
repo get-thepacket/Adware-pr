@@ -5,7 +5,6 @@ from .models import AdMedia
 from django.http import HttpResponse
 from django.conf import settings
 
-
 """
 Note: put login required decorator for all functions
 """
@@ -15,7 +14,7 @@ Note: put login required decorator for all functions
 def index(request):
     form = AdMediaForm()
 
-    return render(request, "Advertiser/index.html", {'user':request.user,'f1':form})
+    return render(request, "Advertiser/index.html", {'user': request.user, 'f1': form})
 
 
 @login_required
@@ -31,14 +30,13 @@ def new_adv(request):
         form = AdMediaForm(request.POST, request.FILES, instance=obj)
 
         if form.is_valid():
-
             obj.username = request.user
 
             obj.save()
 
             return redirect('/adv')
 
-    return render(request, "Advertiser/new_ad.html", {'form': AdMediaForm()})
+    return redirect('/adv')
 
 
 @login_required
@@ -61,10 +59,9 @@ def media(request, media_name):
     files = [str(i.media) for i in AdMedia.objects.filter(username=request.user)]
 
     if media_name not in files:
-
         return HttpResponse('Unauthorised', status=401)
 
-    img = open(settings.BASE_DIR+'/media/'+media_name,'rb')
+    img = open(settings.BASE_DIR + '/media/' + media_name, 'rb')
 
     return HttpResponse(img.read(), content_type="image/jpeg")
 

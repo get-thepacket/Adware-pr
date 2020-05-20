@@ -10,5 +10,7 @@
 - [ ] interactive UI
 - [ ] design a 404 and 401 page
 - [x] main page design,add links
-
+- [ ] alter logout redirect
+- [ ] create modal for view ads
+- [ ] work on subscriptions page
 please tick whatever is done and add more todo's as you have found.

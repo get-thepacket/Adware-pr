@@ -13,8 +13,8 @@ Note: put login required decorator for all functions
 @login_required
 def index(request):
     form = AdMediaForm()
-
-    return render(request, "Advertiser/index.html", {'user': request.user, 'f1': form})
+    user_media = AdMedia.objects.filter(username=request.user)
+    return render(request, "Advertiser/index.html", {'user': request.user, 'f1': form,'AdMedia':user_media})
 
 
 @login_required

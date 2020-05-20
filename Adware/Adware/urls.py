@@ -19,8 +19,8 @@ from django.urls import path, include
 from . import views
 from Advertiser.views import media
 
-
 urlpatterns = [
+
     path('admin/', admin.site.urls),
     path('', views.index),
     path('accounts/', include('django.contrib.auth.urls')),

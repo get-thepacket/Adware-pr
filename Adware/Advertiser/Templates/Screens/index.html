@@ -1,6 +1,8 @@
 {% extends 'Advertiser/base.html' %}
 
 {% block content %}
+
+{% load crispy_forms_tags %}
 <section id="services" class="services">
 
       <!-- New Screen form Modal Starts -->
@@ -16,7 +18,7 @@
               </button>
             </div>
             <div class="modal-body">
-              {{f1}}
+              {{f1|crispy}}
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

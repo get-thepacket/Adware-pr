@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def index(request):
-    return render(request, "Screens/index.html")
+    form = ScreenForm()
+    return render(request, "Screens/index.html", {'f1':form})
 
 
 @login_required
@@ -19,4 +20,4 @@ def new_scr(request):
             obj.save()
             return redirect('/')
     form = ScreenForm()
-    return render(request, "Screens/new.html", {'form': form})
+    return render(request, "Screens/new.html", {'f1': form})

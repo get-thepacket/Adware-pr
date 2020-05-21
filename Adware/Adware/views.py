@@ -61,6 +61,7 @@ def index(request):
                 if user is not None:
                     info = "logged in successfully"
                     msgtype = "success"
+                    login(request,user)
                     print(user)
                     roles = [i.type.lower() for i in AppUser.objects.filter(User=user)]
                     roles = [(i, roleURL[i]) for i in roles]

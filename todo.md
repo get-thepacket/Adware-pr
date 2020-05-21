@@ -13,5 +13,5 @@
 - [x] alter logout redirect
 - [x] create modal for view ads
 - [ ] work on subscriptions page
-- [ ] Login page bug when wrong credentials entered
+- [x] Login page bug when wrong credentials entered
 please tick whatever is done and add more todo's as you have found.

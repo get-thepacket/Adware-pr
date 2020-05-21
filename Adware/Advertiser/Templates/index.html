@@ -160,7 +160,7 @@
         
         <div class="modal-footer">
           <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Sign Up</button>
+          <button name = "signup" type="submit" class="btn btn-primary">Sign Up</button>
         </div>
       </div>
     </div>
@@ -169,7 +169,7 @@
   </form>
   <!--Sign Up Form ends-->
   <!--Login Form-->
-  <form action="/accounts/login/" method="post">
+  <form method="post">
       {%csrf_token%}
 
   <div class="modal form" tabindex="-1" role="dialog" id="LoginForm">
@@ -216,7 +216,7 @@
         {{ f2.password|as_crispy_field }}
         <div class="modal-footer">
           <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button name = "login" type="submit" class="btn btn-primary">Login</button>
         </div>
       </div>
     </div>

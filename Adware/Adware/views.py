@@ -8,59 +8,66 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    info = " "
-    msgtype = " "
-    if request.method == 'POST':
-        obj = User()
-        form = UserForm(request.POST)
-        info = "some error occured"
-        msgtype = "error"
-        print(form.is_valid())
-
-        if True:
-            print(form.cleaned_data)
-            email = form.cleaned_data['email']
-            type = form.cleaned_data['type']
-            try:
-
-                UserExist = User.objects.get(username=email)
-            except User.DoesNotExist:
-                UserExist = None
-            if UserExist:
-                UserType = [i.type for i in AppUser.objects.filter(User=UserExist)]
-                if type in UserType:
-                    info = "User Already Exist"
-                    msgtype = "error"
-                else:
-                    info = 'User with different role exist'
-                    msgtype = "warning"
-                    # Multiple roles will be continues
-            else:
-                obj.username = email
-                print(form.cleaned_data)
-                obj.set_password(form.cleaned_data['password1'])
-                obj.save()
-                o1 = AppUser()
-                o1.type = type
-                o1.User = obj
-                o1.save()
-                info = "user created successfully"
-                msgtype = "success"
-    form = UserForm()
-    loginForm = LoginForm()
-    user=''
-    roles=[]
+    info = ""
+    msgtype = ""
+    user = ""
+    roles = []
     roleURL = {}
-    roleURL['vendor']='/scr'
-    roleURL['advertiser']='/adv'
+    roleURL['vendor'] = '/scr'
+    roleURL['advertiser'] = '/adv'
+    obj = User()
+    if request.method == 'POST':
+        if 'signup' in request.POST:
+            print("signup_triggered")
+            form = UserForm(request.POST)
+            if form.is_valid():
+                print(form.cleaned_data)
+                email = form.cleaned_data['email']
+                type = form.cleaned_data['type']
+                try:
 
-    if request.user.is_authenticated:
-        user=request.user.username
-        roles=[i.type.lower() for i in AppUser.objects.filter(User=request.user)]
-        roles=[(i,roleURL[i]) for i in roles]
-    print(info)
-    return render(request, "index.html", {'f1': form, 'f2': LoginForm, 'info': info, 'msgtype':msgtype ,'user':user,'roles':roles})
+                    UserExist = User.objects.get(username=email)
+                except User.DoesNotExist:
+                    UserExist = None
+                if UserExist:
+                    UserType = [i.type for i in AppUser.objects.filter(User=UserExist)]
+                    if type in UserType:
+                        info = "User Already Exist"
+                        msgtype = "error"
+                    else:
+                        info = 'User with different role exist'
+                        msgtype = "warning"
+                        # Multiple roles will be continues
+                else:
+                    obj.username = email
+                    print(form.cleaned_data)
+                    obj.set_password(form.cleaned_data['password1'])
+                    obj.save()
+                    o1 = AppUser()
+                    o1.type = type
+                    o1.User = obj
+                    o1.save()
+                    info = "user created successfully"
+                    msgtype = "success"
 
+        elif 'login' in request.POST:
+            print("login_triggered")
+            loginform = LoginForm(request.POST)
+            if loginform.is_valid():
+                print(loginform.cleaned_data)
+                user = loginform.cleaned_data['username']
+                pswd = loginform.cleaned_data['password']
+                user = authenticate(username=user,password=pswd)
+                if user is not None:
+                    info = "logged in successfully"
+                    msgtype = "success"
+                    print(user)
+                    roles = [i.type.lower() for i in AppUser.objects.filter(User=user)]
+                    roles = [(i, roleURL[i]) for i in roles]
+                else:
+                    info = "invalid credentials"
+                    msgtype = "warning"
+    return render(request, "index.html",{'f1': UserForm, 'f2': LoginForm, 'info': info, 'msgtype': msgtype, 'user': user, 'roles': roles})
 
 @login_required
 def profile(request):

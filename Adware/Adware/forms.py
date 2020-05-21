@@ -9,6 +9,13 @@ choices = (
 
 
 class UserForm(UserCreationForm):
+    def __init__(self, *args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.fields['first_name'].widget.attrs.update({'class':'form-control'})
+        self.fields['last_name'].widget.attrs.update({'class':'form-control'})
+        self.fields['email'].widget.attrs.update({'class':'form-control'})
+        self.fields['password1'].widget.attrs.update({'class':'form-control'})
+        self.fields['password2'].widget.attrs.update({'class':'form-control'})
     type = forms.ChoiceField(choices=choices)
 
     class Meta:
@@ -17,5 +24,5 @@ class UserForm(UserCreationForm):
 
 
 class LoginForm(forms.Form):
-    username = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput())
+    username = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))

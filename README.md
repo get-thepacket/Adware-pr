@@ -50,5 +50,7 @@
     - Primary key (screen_id,Ad_id)
     - (screen_id,Ad_id) -> Screen(id) displays ad (Ad_id)
 
-
+- Toaster Usage
+  - toastr.{{message.type}}('{{message}}')
+  - where message.type can be info , success , warning , error. 
 #### TODO can be found in todo.md

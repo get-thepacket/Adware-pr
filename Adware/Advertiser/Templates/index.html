@@ -27,6 +27,12 @@
   <link href="../static/assets/vendor/venobox/venobox.css" rel="stylesheet">
   <link href="../static/assets/vendor/aos/aos.css" rel="stylesheet">
 
+  <!--Toast CSS-->
+  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
   <!-- Template Main CSS File -->
   <link href="../static/assets/css/style.css" rel="stylesheet">
 
@@ -72,7 +78,6 @@
 
     </div>
   </header><!-- End Header -->
-
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
 
@@ -102,42 +107,10 @@
 
   <!-- toast message -->
   {% if info %}
-    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-      <!-- Position it -->
-      <div style="position: absolute; top: 0; right: 0;">
-
-        <!-- Then put toasts within -->
-        <div class="toast" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true" id = "new">
-          <div class="toast-header">
-            <strong class="mr-auto">Alert</strong>
-            <small class="text-muted">just now</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="toast-body">
-            {{info}}
-          </div>
-        </div>
-
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-          <div class="toast-header">
-            <strong class="mr-auto">Alert</strong>
-            <small class="text-muted">2 seconds ago</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="toast-body">
-            {{info}}
-          </div>
-        </div>
-      </div>
-    </div>
-
-
+    <script>toastr.{{msgtype}}('{{info}}')</script>
   {% endif %}
   <!-- toast message end -->
+
   <!--Sign Up Form starts-->
   <form method="post">
       {%csrf_token%}

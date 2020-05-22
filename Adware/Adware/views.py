@@ -69,7 +69,7 @@ def index(request):
                 else:
                     info = "invalid credentials"
                     msgtype = "warning"
-    if user.is_authenticated:
+    if user and user.is_authenticated:
         """
         Defining roles for logged in user
         """

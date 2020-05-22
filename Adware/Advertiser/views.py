@@ -14,9 +14,10 @@ Note: put login required decorator for all functions
 def index(request):
     form = AdMediaForm()
     user_media = AdMedia.objects.filter(username=request.user)
-    msg=request.GET.get('msg','')
+    msg=request.GET.get('info','')
+    msgtype=request.GET.get('msgtype', 'error')
     print(msg)
-    return render(request, "Advertiser/index.html", {'user': request.user, 'f1': form,'AdMedia':user_media,'message':msg})
+    return render(request, "Advertiser/index.html", {'user': request.user, 'f1': form,'AdMedia':user_media,'info':msg,'msgtype':'success'})
 
 
 @login_required
@@ -36,9 +37,9 @@ def new_adv(request):
 
             obj.save()
 
-            return redirect('/adv?msg=Advertisement uploaded')
+            return redirect('/adv?info=Advertisement uploaded&msgtype=success')
 
-    return redirect('/adv')
+    return redirect('/adv?info=Some Error Occurred&msgtype=error')
 
 
 @login_required

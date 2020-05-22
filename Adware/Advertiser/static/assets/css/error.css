@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  padding: 0%;
+}
+
+#notfound {
+  position: relative;
+  height: 100vh;
+}
+
+#notfound .notfound {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+#notfound .notfound h1 {
+  font-family: 'Titillium-Web', sans-serif;
+  font-size: 186px;
+  font-weight: 900;
+  margin: 0;
+  text-transform: uppercase;
+  background: url("./codeblauw.jpg");
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: cover;
+  background-position: center;
+}
+
+#notfound .notfound h2 {
+  font-family: 'Titillium-Web', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+#notfound .notfound p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+#notfound .notfound a {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  color: white;
+  background: #5c91fe;
+  padding: 10px 40px;
+  font-size: 14px;
+  margin-top: 15px;
+  font-weight: 700;
+  -webkit-transition: 0.2 all;
+  transition: 0.2 all;
+  text-decoration: none;
+}
+
+#notfound .notfound a:hover {
+  background: #79a7f5;
+}
+/*# sourceMappingURL=error.css.map */

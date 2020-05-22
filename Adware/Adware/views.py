@@ -82,7 +82,7 @@ def index(request):
 @login_required
 def profile(request):
     """
-    :param request: reqeest
+    :param request: request
     :return: Profile page
     Page to redirect to home page after successful login attempt
     """
@@ -116,3 +116,9 @@ def signup(request, type):
                 return redirect('login')
             return redirect('login')
     return render(request, 'registration/signup.html', {'form': form})
+
+def handler404(request,exception):
+    return render(request, '404.html',status=404)
+
+def handler403(request,exception):
+    return render(request, '403.html', status=403)

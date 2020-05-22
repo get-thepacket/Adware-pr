@@ -8,7 +8,8 @@
 - [ ] Link advertisement to screens
 - [ ] work on the screen application
 - [ ] interactive UI
-- [ ] design a 404 and 401 page
+- [x] design a 404 and ~~401~~ 403 page
+- [ ] check 403 page
 - [x] main page design,add links
 - [x] alter logout redirect
 - [x] create modal for view ads

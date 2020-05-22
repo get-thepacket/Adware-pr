@@ -3,6 +3,7 @@ from .forms import UserForm, LoginForm
 from .models import AppUser
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from requests import request
 from django.db.utils import IntegrityError
 from django.contrib.auth.decorators import login_required
 
@@ -10,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     info = ""
     msgtype = ""
-    user = ""
+    user = request.user   # initialize user values
     roles = []
     roleURL = {}
     roleURL['vendor'] = '/scr'
@@ -25,7 +26,6 @@ def index(request):
                 email = form.cleaned_data['email']
                 type = form.cleaned_data['type']
                 try:
-
                     UserExist = User.objects.get(username=email)
                 except User.DoesNotExist:
                     UserExist = None
@@ -49,6 +49,9 @@ def index(request):
                     o1.save()
                     info = "user created successfully"
                     msgtype = "success"
+            else:
+                info = "Passwords don't match"
+                msgtype='error'
 
         elif 'login' in request.POST:
             print("login_triggered")
@@ -63,11 +66,17 @@ def index(request):
                     msgtype = "success"
                     login(request,user)
                     print(user)
-                    roles = [i.type.lower() for i in AppUser.objects.filter(User=user)]
-                    roles = [(i, roleURL[i]) for i in roles]
                 else:
                     info = "invalid credentials"
                     msgtype = "warning"
+    if user.is_authenticated:
+        """
+        Defining roles for logged in user
+        """
+        roles = [i.type.lower() for i in AppUser.objects.filter(User=user)]
+        roles = [(i, roleURL[i]) for i in roles]
+    else:
+        user=''
     return render(request, "index.html",{'f1': UserForm, 'f2': LoginForm, 'info': info, 'msgtype': msgtype, 'user': user, 'roles': roles})
 
 @login_required

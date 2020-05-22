@@ -14,4 +14,5 @@
 - [x] create modal for view ads
 - [ ] work on subscriptions page
 - [x] Login page bug when wrong credentials entered
+- [ ] Remove GET parameters using JS script example /adv?info=something&msgtype=something
 please tick whatever is done and add more todo's as you have found.

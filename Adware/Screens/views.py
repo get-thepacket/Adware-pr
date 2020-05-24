@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def index(request):
     form = ScreenForm()
-    return render(request, "Screens/index.html", {'f1':form})
+    return render(request, "Screens/index.html", {'f1':form,'user':str(request.user).split("@")[0]})
 
 
 @login_required

@@ -18,7 +18,7 @@ def index(request):
     msg=request.GET.get('info','')
     msgtype=request.GET.get('msgtype', 'error')
     print(msg)
-    return render(request, "Advertiser/index.html", {'user': request.user, 'f1': form,'AdMedia':user_media,'info':msg,'msgtype':'success'})
+    return render(request, "Advertiser/index.html", {'user': str(request.user).split("@")[0], 'f1': form,'AdMedia':user_media,'info':msg,'msgtype':'success'})
 
 
 @login_required

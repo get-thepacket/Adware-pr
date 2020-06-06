@@ -31,3 +31,5 @@ urlpatterns = [
     path('media/<media_name>', media),
 
 ]
+
+handler404 = views.handler404

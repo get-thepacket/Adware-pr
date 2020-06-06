@@ -3,7 +3,7 @@ from .forms import UserForm, LoginForm
 from .models import AppUser
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from requests import request
+from urllib import request
 from django.db.utils import IntegrityError
 from django.contrib.auth.decorators import login_required
 
@@ -77,12 +77,12 @@ def index(request):
         roles = [(i, roleURL[i]) for i in roles]
     else:
         user=''
-    return render(request, "index.html",{'f1': UserForm, 'f2': LoginForm, 'info': info, 'msgtype': msgtype, 'user': user, 'roles': roles})
+    return render(request, "index.html",{'f1': UserForm, 'f2': LoginForm, 'info': info, 'msgtype': msgtype, 'user': str(user).split("@")[0], 'roles': roles})
 
 @login_required
 def profile(request):
     """
-    :param request: reqeest
+    :param request: request
     :return: Profile page
     Page to redirect to home page after successful login attempt
     """
@@ -116,3 +116,9 @@ def signup(request, type):
                 return redirect('login')
             return redirect('login')
     return render(request, 'registration/signup.html', {'form': form})
+
+def handler404(request,exception):
+    return render(request, '404.html',status=404)
+
+def handler403(request,exception):
+    return render(request, '403.html', status=403)

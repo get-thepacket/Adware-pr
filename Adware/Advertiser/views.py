@@ -84,6 +84,6 @@ def screen_select(request, ad_id):
     for screen in Screen:
         #print(screen.address,screen.landmarks,search)
         if (search in screen.address) or (search in screen.landmarks):
-            query_result.append((screen.description, screen.type, screen.address, screen.landmarks))
+            query_result.append(screen)
     print(query_result)
     return render(request, 'Advertiser/publish.html',{'query_result':query_result})

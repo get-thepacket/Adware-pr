@@ -7,14 +7,15 @@
 <body>
     <form method="get">
         <input name="search" type="search">
-        <input type="submit">
+        <input name="Filter screens" type="submit">
     </form>
     <ul>
     {% for i in query_result %}
         <li>
-        {% for j in i %}
-            {{j}}
-        {% endfor %}
+            {{i.description}}
+            {{i.address}}
+            {{i.type}}
+            {{i.landmarks}}
         </li>
     {% endfor %}
     </ul>

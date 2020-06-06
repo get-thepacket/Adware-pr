@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import AdMediaForm
 from .models import AdMedia
+from Screens.models import Screens
 from django.http import HttpResponse
 from django.conf import settings
 
@@ -77,4 +78,12 @@ def screen_select(request, ad_id):
     todo: user interactive page
     todo: geo-location based selection
     """
-    return HttpResponse(str(ad_id))
+    search = request.GET.get('search','')
+    Screen = Screens.objects.all()
+    query_result=[]
+    for screen in Screen:
+        #print(screen.address,screen.landmarks,search)
+        if (search in screen.address) or (search in screen.landmarks):
+            query_result.append((screen.description, screen.type, screen.address, screen.landmarks))
+    print(query_result)
+    return render(request, 'Advertiser/publish.html',{'query_result':query_result})

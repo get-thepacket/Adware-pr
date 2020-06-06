@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Publish</title>
+</head>
+<body>
+    <form method="get">
+        <input name="search" type="search">
+        <input type="submit">
+    </form>
+    <ul>
+    {% for i in query_result %}
+        <li>
+        {% for j in i %}
+            {{j}}
+        {% endfor %}
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

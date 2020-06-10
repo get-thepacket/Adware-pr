@@ -9,7 +9,8 @@ class Screens(models.Model):
         ('Medium', 'Between X and Y'),
         ('Small', 'Less than Y')
     )
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    auto_id = models.AutoField(primary_key=True)
+    id = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     type = models.CharField(default='Big', choices=category, max_length=10)
     description = models.CharField(max_length=50)

@@ -1,11 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .forms import UserForm, LoginForm
 from .models import AppUser
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from requests import request
+from urllib import request
 from django.db.utils import IntegrityError
 from django.contrib.auth.decorators import login_required
+from Screens.models import Screens
+from Advertiser.models import AdMedia, DisplaysAd
+import uuid
+import json
 
 
 def index(request):
@@ -77,7 +81,7 @@ def index(request):
         roles = [(i, roleURL[i]) for i in roles]
     else:
         user=''
-    return render(request, "index.html",{'f1': UserForm, 'f2': LoginForm, 'info': info, 'msgtype': msgtype, 'user': user, 'roles': roles})
+    return render(request, "index.html",{'f1': UserForm, 'f2': LoginForm, 'info': info, 'msgtype': msgtype, 'user': str(user).split("@")[0], 'roles': roles})
 
 @login_required
 def profile(request):
@@ -117,8 +121,34 @@ def signup(request, type):
             return redirect('login')
     return render(request, 'registration/signup.html', {'form': form})
 
+
 def handler404(request,exception):
     return render(request, '404.html',status=404)
 
+
 def handler403(request,exception):
     return render(request, '403.html', status=403)
+
+
+def api(request):
+    id=request.GET.get('id',None)
+    response={'status':'ok', 'media_path':[]}
+    try:
+        id = uuid.UUID(id)
+        screen = None
+        for screens in Screens.objects.all():
+            if screens.id == id:
+                screen=screens
+                break
+        if not screen:
+            response['status'] = 'not found'
+        else:
+            for obj in DisplaysAd.objects.all():
+                if obj.screen == screen:
+                    response['media_path'].append(obj.ad.media.name)
+
+    except ValueError:
+        print('ValueError')
+        response['status'] = 'not found'
+    return HttpResponse(json.dumps(response), content_type="application/json")
+

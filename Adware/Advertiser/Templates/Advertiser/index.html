@@ -48,7 +48,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ i.file_name }}</h5>
                         <p class="card-text"><!-- Some random text here --></p>
-                        <a href="#" class="btn btn-primary">Advertise</a>
+                        <a href="/adv/publish/{{i.id}}" class="btn btn-primary">Advertise</a>
                     </div>
                 </div>
             {% endfor %}
@@ -63,6 +63,8 @@
         </div>
       </div>
       <!-- End View Ads Modal -->
+
+    <!--Main Page Section Starts-->
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
@@ -101,15 +103,5 @@
         </div>
 
       </div>
-        <script>
-    $(document).ready(function(){
-        $(".show").click(function(){
-            $("#new").toast({
-                delay:1000000
-            });
-        });
-        $("#new").toast('show');
-    });
-  </script>
-    </section><!-- End of Services Section -->
+    </section><!-- Main page section ends -->
 {% endblock %}

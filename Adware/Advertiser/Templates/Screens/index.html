@@ -34,25 +34,15 @@
         <div class="modal-dialog modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Your Advertisements</h5>
+              <h5 class="modal-title">Screen access tokens</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-             {% for i in AdMedia %}
-                <div class="card" style="width: 18rem;">
-                    <img src="/media/{{ i.media }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ i.file_name }}</h5>
-                        <p class="card-text"><!-- Some random text here --></p>
-                        <a href="#" class="btn btn-primary">Advertise</a>
-                    </div>
-                </div>
-            {% endfor %}
-              {% if not AdMedia %}
-                <p>Page under construction</p>
-              {% endif %}
+                {% for i in uuid %}
+                    <li>{{i}}</li>
+                {% endfor %}
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -99,15 +89,5 @@
         </div>
 
       </div>
-        <script>
-    $(document).ready(function(){
-        $(".show").click(function(){
-            $("#new").toast({
-                delay:1000000
-            });
-        });
-        $("#new").toast('show');
-    });
-  </script>
     </section><!-- End of Services Section -->
 {% endblock %}

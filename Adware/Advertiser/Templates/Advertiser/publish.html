@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Publish</title>
+</head>
+<body>
+    <form method="get">
+        <input name="search" type="search">
+        <input name="Filter screens" type="submit">
+    </form>
+    <ul>
+    {% for i in query_result %}
+        <li>
+            {{i.description}}
+            {{i.address}}
+            {{i.type}}
+            {{i.landmarks}}
+            <a href="/adv/publish/{{ad_id}}/{{i.auto_id}}">publish</a>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

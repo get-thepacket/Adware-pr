@@ -5,5 +5,6 @@ urlpatterns = [
     path('', views.index),
     path('/new/', views.new_adv),
     path('/view', views.view_media),
-    path('/publish/<ad_id>', views.screen_select)
+    path('/publish/<ad_id>', views.screen_select),
+    path('/publish/<ad_id>/<screen_id>', views.publish),
 ]

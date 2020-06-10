@@ -54,7 +54,7 @@ def view_media(request):
     return render(request, "Advertiser/view_media.html", {'AdMedia': user_media})
 
 
-@login_required
+
 def media(request, media_name):
     """
     Function to securely access media files

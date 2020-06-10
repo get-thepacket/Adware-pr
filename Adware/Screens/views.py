@@ -7,7 +7,11 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def index(request):
     form = ScreenForm()
-    return render(request, "Screens/index.html", {'f1':form,'user':str(request.user).split("@")[0]})
+    uuids=[]
+    for screen in Screens.objects.all():
+        uuids.append(str(screen.id))
+    print(uuids)
+    return render(request, "Screens/index.html", {'f1':form,'user':str(request.user).split("@")[0],'uuid':uuids})
 
 
 @login_required

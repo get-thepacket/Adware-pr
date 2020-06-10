@@ -24,11 +24,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/profile/',views.profile),
+    path('accounts/profile/', views.profile),
     path('accounts/signup/<type>', views.signup),
     path('adv', include('Advertiser.urls')),
     path('scr', include('Screens.urls')),
     path('media/<media_name>', media),
+    path('api/', views.api),
 
 ]
 

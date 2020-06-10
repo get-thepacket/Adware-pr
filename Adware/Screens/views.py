@@ -18,6 +18,14 @@ def new_scr(request):
         if form.is_valid():
             obj.owner = request.user
             obj.save()
+            print(get_uuid(obj.auto_id))
             return redirect('/')
     form = ScreenForm()
     return render(request, "Screens/new.html", {'f1': form})
+
+
+def get_uuid(x):
+    for i in Screens.objects.all():
+        if i.auto_id == x:
+            return i.id
+    return None

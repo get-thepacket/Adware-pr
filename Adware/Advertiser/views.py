@@ -88,7 +88,9 @@ def screen_select(request, ad_id):
         if (search in screen.address) or (search in screen.landmarks):
             query_result.append(screen)
     print(query_result)
-    return render(request, 'Advertiser/publish.html',{'query_result':query_result,'ad_id':ad_id})
+    total_screens = len(query_result)
+    print(total_screens)
+    return render(request, 'Advertiser/publish.html',{'total_screens':total_screens, 'query_result':query_result,'ad_id':ad_id})
 
 
 def publish(request, ad_id, screen_id):

@@ -2,106 +2,106 @@
 
 {% block content %}
 <section id="services" class="services">
-     <!-- toast message -->
-  {% if info %}
+    <!-- toast message -->
+    {% if info %}
     <script>toastr.{{msgtype}}('{{info}}')</script>
-  {% endif %}
-  <!-- toast message end -->
-      <!-- New AdMedia form Modal Starts -->
-      <form enctype="multipart/form-data" action="/adv/new/" method="post">
+    {% endif %}
+    <!-- toast message end -->
+    <!-- New AdMedia form Modal Starts -->
+    <form enctype="multipart/form-data" action="/adv/new/" method="post">
         {% csrf_token %}
-      <div class="modal fade" tabindex="-1" role="dialog" id="NewAd">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">New Advertisement</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              {{f1}}
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="Submit" class="btn btn-primary">Create Advertisement</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </form>
-      <!-- New AdMedia form Modal Ends -->
-      <!-- Start View Ads Modal -->
-      <div class="modal fade" tabindex="-1" role="dialog" id="ViewAdv">
-        <div class="modal-dialog modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Your Advertisements</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-             {% for i in AdMedia %}
-                <div class="card" style="width: 18rem;">
-                    <img src="/media/{{ i.media }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ i.file_name }}</h5>
-                        <p class="card-text"><!-- Some random text here --></p>
-                        <a href="/adv/publish/{{i.id}}" class="btn btn-primary">Advertise</a>
+        <div class="modal fade" tabindex="-1" role="dialog" id="NewAd">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">New Advertisement</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{f1}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="Submit" class="btn btn-primary">Create Advertisement</button>
                     </div>
                 </div>
-            {% endfor %}
-              {% if not AdMedia %}
-                <p>Nothing to show here !!</p>
-              {% endif %}
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
         </div>
-      </div>
-      <!-- End View Ads Modal -->
+    </form>
+    <!-- New AdMedia form Modal Ends -->
+    <!-- Start View Ads Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="ViewAdv">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Your Advertisements</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% for i in AdMedia %}
+                    <div class="card" style="width: 18rem;">
+                        <img src="/media/{{ i.media }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ i.file_name }}</h5>
+                            <p class="card-text"><!-- Some random text here --></p>
+                            <a href="/adv/publish/{{i.id}}" class="btn btn-primary">Advertise</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% if not AdMedia %}
+                    <p>Nothing to show here !!</p>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End View Ads Modal -->
 
     <!--Main Page Section Starts-->
-      <div class="container">
+    <div class="container">
 
         <div class="section-title" data-aos="fade-up">
-          <h2>Welcome {{user}}</h2>
-          <p>Manage Your Advertisements</p>
+            <h2>Welcome {{user}}</h2>
+            <p>Manage Your Advertisements</p>
         </div>
-    <section id="more-services" class="more-services">
-      <div class="container">
+        <section id="more-services" class="more-services">
+            <div class="container">
 
-        <div class="row">
-          <div class="col-md-6 d-flex align-items-stretch">
-            <div class="card" style='background-image: url("../static/assets/img/more-services-1.jpg");' data-aos="fade-up" data-aos-delay="100">
-              <div class="card-body">
-                <h5 class="card-title"><a href="" data-toggle="modal" data-target="#ViewAdv">My Advertisements</a></h5>
-                <p class="card-text">check your active advertisements</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-            <div class="card" style='background-image: url("../static/assets/img/more-services-2.jpg");' data-aos="fade-up" data-aos-delay="200">
-              <div class="card-body">
-                <h5 class="card-title"><a href="" data-toggle="modal" data-target="#NewAd">Create Advertisement</a></h5>
-                <p class="card-text">Wanna display one more add?. Here you go {{user}}</p>
-              </div>
-            </div>
+                <div class="row">
+                    <div class="col-md-6 d-flex align-items-stretch">
+                        <div class="card" style='background-image: url("../static/assets/img/more-services-1.jpg");' data-aos="fade-up" data-aos-delay="100">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="" data-toggle="modal" data-target="#ViewAdv">My Advertisements</a></h5>
+                                <p class="card-text">check your active advertisements</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+                        <div class="card" style='background-image: url("../static/assets/img/more-services-2.jpg");' data-aos="fade-up" data-aos-delay="200">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="" data-toggle="modal" data-target="#NewAd">Create Advertisement</a></h5>
+                                <p class="card-text">Wanna display one more add?. Here you go {{user}}</p>
+                            </div>
+                        </div>
 
-          </div>
-          <div class="col-md-6 d-flex align-items-stretch mt-4">
-            <div class="card" style='background-image: url("../static/assets/img/more-services-3.jpg");' data-aos="fade-up" data-aos-delay="100">
-              <div class="card-body">
-                <h5 class="card-title"><a href="/adv/subs">My Subscriptions</a></h5>
-                <p class="card-text">Manage your active subscriptions and if you don't have go for one</p>
-              </div>
-            </div>
-          </div>
-        </div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-stretch mt-4">
+                        <div class="card" style='background-image: url("../static/assets/img/more-services-3.jpg");' data-aos="fade-up" data-aos-delay="100">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/adv/subs">My Subscriptions</a></h5>
+                                <p class="card-text">Manage your active subscriptions and if you don't have go for one</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-      </div>
-    </section><!-- Main page section ends -->
-{% endblock %}
+            </div>
+        </section><!-- Main page section ends -->
+        {% endblock %}

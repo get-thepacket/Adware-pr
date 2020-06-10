@@ -1,24 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Publish</title>
-</head>
-<body>
-    <form method="get">
+{% extends 'Advertiser/base.html' %}
+
+{% block content %}
+    <br><br><br>
+    <form method="get" align="center">
         <input name="search" type="search">
         <input name="Filter screens" type="submit">
     </form>
     <ul>
+    <section id="pricing" class="pricing">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Choose Screens</h2>
+          <p>{{total_screens}} Screens available for your search</p>
+        </div>
+    <div class="row">
     {% for i in query_result %}
-        <li>
-            {{i.description}}
-            {{i.address}}
-            {{i.type}}
-            {{i.landmarks}}
-            <a href="/adv/publish/{{ad_id}}/{{i.auto_id}}">publish</a>
-        </li>
+
+          <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
+            <div class="box recommended" data-aos="zoom-in" data-aos-delay="50">
+              <h3>{{i.type}}</h3>
+              <h4><sup>$</sup>19<span> / month</span></h4>
+              <ul>
+                <li>{{i.description}}</li>
+                <li>{{i.address}}</li>
+                <li>{{i.landmarks}}</li>
+                <li class="na">Kharid le re deva</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="/adv/publish/{{ad_id}}/{{i.auto_id}}" class="btn-buy">Publish</a>
+              </div>
+            </div>
+          </div>
+
     {% endfor %}
+
+      </div>
+    </section><!-- End Pricing Section -->
     </ul>
-</body>
-</html>
+{% endblock %}

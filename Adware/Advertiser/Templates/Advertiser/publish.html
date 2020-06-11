@@ -1,17 +1,23 @@
 {% extends 'Advertiser/base.html' %}
 
 {% block content %}
-    <br><br><br>
-    <form method="get" align="center">
-        <input name="search" type="search">
-        <input name="Filter screens" type="submit">
-    </form>
+
     <ul>
     <section id="pricing" class="pricing">
       <div class="container">
-
         <div class="section-title">
           <h2>Choose Screens</h2>
+             <div class="dropdown">
+                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter
+                </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <form method="get" align="center">
+                    <input name="search" value="{{search}}" type="search">
+                    <input value="Filter screens" type="submit">
+                </form>
+            </div>
+            </div>
           <p>{{total_screens}} Screens available for your search</p>
         </div>
     <div class="row">

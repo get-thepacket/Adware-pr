@@ -90,7 +90,7 @@ def screen_select(request, ad_id):
     print(query_result)
     total_screens = len(query_result)
     print(total_screens)
-    return render(request, 'Advertiser/publish.html',{'total_screens':total_screens, 'query_result':query_result,'ad_id':ad_id})
+    return render(request, 'Advertiser/publish.html',{'total_screens':total_screens, 'query_result':query_result,'ad_id':ad_id,'search':search})
 
 
 def publish(request, ad_id, screen_id):

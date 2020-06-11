@@ -53,4 +53,15 @@
 - Toaster Usage
   - toastr.{{message.type}}('{{message}}')
   - where message.type can be info , success , warning , error. 
-#### TODO can be found in todo.md
+## API design
+
+- Every registered screen will have a access token to the adware-API.
+- API can be accessed by http://127.0.0.1:8000/api?id=SCREEN_TOKEN
+
+### API response object
+
+- Response object is in JSON format.
+### JSON attributes
+- 'status' is 'ok' if the provided id is correctly sent. else 'not found'
+- 'media_path' field contains a list of strings of name of media. The same media name can be used to access the media at http://127.0.0.1:8000/media/media_name
+- See vendor-script.py for sample api access code. 

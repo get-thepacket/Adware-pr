@@ -1,5 +1,10 @@
 from requests import request
 
+"""
+This Script demonstrates a raspberry-pi accessing adware-API.
+copy paste your screen-token from "my screens" section into a token.txt file in the same folder.
+Script will download all the images and save in current script directory.
+"""
 
 ## Open token file the screen
 try:

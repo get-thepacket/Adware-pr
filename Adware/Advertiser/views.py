@@ -10,15 +10,33 @@ from django.conf import settings
 Note: put login required decorator for all functions
 """
 
+pricing = {'Big': 100, "Medium": 50, "Small": 30}
+
 
 @login_required
 def index(request):
     form = AdMediaForm()
     user_media = AdMedia.objects.filter(username=request.user)
-    msg=request.GET.get('info','')
-    msgtype=request.GET.get('msgtype', 'error')
+    msg = request.GET.get('info', '')
+    msgtype = request.GET.get('msgtype', 'error')
     print(msg)
-    return render(request, "Advertiser/index.html", {'user': str(request.user).split("@")[0], 'f1': form,'AdMedia':user_media,'info':msg,'msgtype':'success'})
+    subscription = []
+    total_cost = 0
+    for sub in DisplaysAd.objects.all():
+        if sub.ad.username == request.user:
+            cost = pricing[sub.screen.type]
+            subscription.append((sub, cost))
+            total_cost+=cost
+    print(subscription,total_cost)
+    return render(request, "Advertiser/index.html",
+                  {'user': str(request.user).split("@")[0],
+                   'f1': form,
+                   'AdMedia': user_media,
+                   'info': msg,
+                   'msgtype': 'success',
+                   'total_cost':total_cost,
+                   'subscription':subscription,
+                   })
 
 
 @login_required
@@ -54,7 +72,6 @@ def view_media(request):
     return render(request, "Advertiser/view_media.html", {'AdMedia': user_media})
 
 
-
 def media(request, media_name):
     """
     Function to securely access media files
@@ -80,17 +97,18 @@ def screen_select(request, ad_id):
     todo: user interactive page
     todo: geo-location based selection
     """
-    search = request.GET.get('search','')
+    search = request.GET.get('search', '')
     Screen = Screens.objects.all()
-    query_result=[]
+    query_result = []
     for screen in Screen:
-        #print(screen.address,screen.landmarks,search)
+        # print(screen.address,screen.landmarks,search)
         if (search in screen.address) or (search in screen.landmarks):
             query_result.append(screen)
     print(query_result)
     total_screens = len(query_result)
     print(total_screens)
-    return render(request, 'Advertiser/publish.html',{'total_screens':total_screens, 'query_result':query_result,'ad_id':ad_id,'search':search})
+    return render(request, 'Advertiser/publish.html',
+                  {'total_screens': total_screens, 'query_result': query_result, 'ad_id': ad_id, 'search': search})
 
 
 def publish(request, ad_id, screen_id):
@@ -107,14 +125,14 @@ def publish(request, ad_id, screen_id):
         if screens.auto_id == int(screen_id):
             screen = screens
             break
-    print(1,screen)
-    print(2,ad)
+    print(1, screen)
+    print(2, ad)
     if not screen or not ad or ad.username != request.user:
         # Screen or Ad not found
         # Advertisement does not belong to the current user
-        return redirect('/adv/publish/'+str(ad_id)+'?status="Some Error Occurred"')
+        return redirect('/adv/publish/' + str(ad_id) + '?status="Some Error Occurred"')
     display = DisplaysAd()
     display.ad = ad
     display.screen = screen
     display.save()
-    return redirect('/adv/publish/'+str(ad_id)+'?status="Advertisement uploaded"')
+    return redirect('/adv/publish/' + str(ad_id) + '?status="Advertisement uploaded"')

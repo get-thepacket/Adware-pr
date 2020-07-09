@@ -2,18 +2,17 @@
 ---
 
 - [ ] Basic design for payment checkout and purchasing screen for an Ad.
-- [ ] UI to show screen location.
-- [ ] ML( if required ) for pricing.
-- [ ] Functionality for Pi to access the required Advertisements.
-- [ ] Link advertisement to screens
-- [ ] work on the screen application
-- [ ] interactive UI
+- [ ] Auto Delete Subscription after subscription is over. 
+- [x] Functionality for Pi to access the required Advertisements.
+- [x] Link advertisement to screens
+- [x] work on the screen application
 - [x] design a 404 and ~~401~~ 403 page
-- [ ] check 403 page
 - [x] main page design,add links
 - [x] alter logout redirect
 - [x] create modal for view ads
-- [ ] work on subscriptions page
+- [x] work on subscriptions page
 - [x] Login page bug when wrong credentials entered
-- [ ] Remove GET parameters using JS script example /adv?info=something&msgtype=something
-please tick whatever is done and add more todo's as you have found.
+- [ ] Screen owner profit metrics.
+
+### Final presentation 20/07 (tentative)
+### please tick whatever is done and add more todo's as you have found.

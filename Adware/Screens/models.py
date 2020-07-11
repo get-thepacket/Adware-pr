@@ -16,3 +16,5 @@ class Screens(models.Model):
     description = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
     landmarks = models.CharField(max_length=200)
+    ad_available = models.IntegerField(default=20)
+

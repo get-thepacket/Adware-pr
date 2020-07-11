@@ -20,4 +20,6 @@ class AdMedia(models.Model):
 class DisplaysAd(models.Model):
     screen = models.ForeignKey(Screens, on_delete=models.CASCADE)
     ad = models.ForeignKey(AdMedia, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+
 

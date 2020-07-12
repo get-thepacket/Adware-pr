@@ -5,6 +5,8 @@ from .models import AdMedia, DisplaysAd
 from Screens.models import Screens
 from django.http import HttpResponse
 from django.conf import settings
+from datetime import datetime, timedelta
+from django.utils import timezone
 
 """
 Note: put login required decorator for all functions
@@ -111,6 +113,7 @@ def screen_select(request, ad_id):
                   {'total_screens': total_screens, 'query_result': query_result, 'ad_id': ad_id, 'search': search})
 
 
+@login_required
 def publish(request, ad_id, screen_id):
     ad = None
 
@@ -136,3 +139,17 @@ def publish(request, ad_id, screen_id):
     display.screen = screen
     display.save()
     return redirect('/adv/publish/' + str(ad_id) + '?status="Advertisement uploaded"')
+
+
+@login_required
+def expire(request):
+    if request.user.is_superuser:
+        expiration_time = 0    # days
+        query = DisplaysAd.objects.all()
+        for obj in query:
+            age = timezone.now() - obj.date_created
+            print(age,age.days)
+            if age.days >= expiration_time:
+                obj.delete()
+        return HttpResponse('expired subscriptions removed')
+    return redirect('/')

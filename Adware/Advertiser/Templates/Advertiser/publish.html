@@ -13,8 +13,35 @@
                 </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <form method="get" align="center">
-                    <input name="search" value="{{search}}" type="search">
-                    <input value="Filter screens" type="submit">
+                    <input class="form-control" name="search" value="{{search}}" type="search" placeholder="Search query here ...">
+                    <div class="custom-control custom-checkbox">
+                        {% if bflag %}
+                        <input name="big" type="checkbox" class="custom-control-input" id="customCheck3" checked>
+                        {%endif%}
+                        {%if not bflag%}
+                        <input name="big" type="checkbox" class="custom-control-input" id="customCheck3">
+                        {%endif%}
+                        <label class="custom-control-label" for="customCheck3">Big Screens</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        {% if mflag %}
+                        <input name="med" type="checkbox" class="custom-control-input" id="customCheck2" checked>
+                        {%endif%}
+                        {%if not mflag%}
+                        <input name="med" type="checkbox" class="custom-control-input" id="customCheck2">
+                        {%endif%}
+                        <label class="custom-control-label" for="customCheck2">Medium Screens</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        {% if sflag %}
+                        <input name="sml" type="checkbox" class="custom-control-input" id="customCheck1" checked>
+                        {%endif%}
+                        {%if not sflag%}
+                        <input name="sml" type="checkbox" class="custom-control-input" id="customCheck1">
+                        {%endif%}
+                      <label class="custom-control-label" for="customCheck1">Small Screens</label>
+                    </div>
+                    <input value="Apply Filter" class="btn btn-primary" type="submit">
                 </form>
             </div>
             </div>

@@ -102,15 +102,47 @@ def screen_select(request, ad_id):
     search = request.GET.get('search', '')
     Screen = Screens.objects.all()
     query_result = []
+    screen_size_filter_flag = False
+    big_size_flag = False
+    med_size_flag = False
+    sml_size_flag = False
+    if request.GET.get('big','')=='on':
+        screen_size_filter_flag = True
+        big_size_flag = True
+    if request.GET.get('med','')=='on':
+        screen_size_filter_flag = True
+        med_size_flag = True
+    if request.GET.get('sml','') == 'on':
+        screen_size_filter_flag = True
+        sml_size_flag = True
+
     for screen in Screen:
         # print(screen.address,screen.landmarks,search)
         if (search in screen.address) or (search in screen.landmarks):
-            query_result.append(screen)
+            if screen_size_filter_flag:
+                size = screen.type
+                if size == 'Big' and big_size_flag:
+                    query_result.append(screen)
+                elif size == 'Small' and sml_size_flag:
+                    query_result.append(screen)
+                elif size == 'Medium' and med_size_flag:
+                    query_result.append(screen)
+                else:
+                    continue
+            else:
+                query_result.append(screen)
     print(query_result)
     total_screens = len(query_result)
     print(total_screens)
+
     return render(request, 'Advertiser/publish.html',
-                  {'total_screens': total_screens, 'query_result': query_result, 'ad_id': ad_id, 'search': search})
+                  {'total_screens': total_screens,
+                   'query_result': query_result,
+                   'ad_id': ad_id,
+                   'bflag': big_size_flag,
+                   'mflag': med_size_flag,
+                   'sflag': sml_size_flag,
+                   'search': search})
 
 
 @login_required

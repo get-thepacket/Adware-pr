@@ -2,23 +2,25 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
+import requests
 
 
 @login_required
 def index(request):
     form = ScreenForm()
-    uuids=[]
+    screens = []
     msg = request.GET.get('info', '')
     msgtype = request.GET.get('msgtype', 'error')
     for screen in Screens.objects.all():
-        uuids.append(str(screen.id))
+        if request.user == screen.owner:
+            screens.append(screen)
     #print(uuids)
     print(msg)
     print(msgtype)
     return render(request, "Screens/index.html",
                   {'f1':form,
                    'user':str(request.user).split("@")[0],
-                   'uuid':uuids,
+                   'screens':screens,
                    'info':msg,
                    'msgtype':msgtype,
                    })
@@ -36,6 +38,19 @@ def new_scr(request):
             return redirect('/scr?info=New Screen added&msgtype=success')
 
     return redirect('/scr?info=Some Error Occurred&msgtype=error')
+
+
+def display(request):
+    uuid = request.GET.get('uuid','')
+    if uuid:
+        url='http://127.0.0.1:8000/api?id='+uuid
+        print(url)
+        data = requests.request('GET',url)
+        data = data.json()
+        if data['status'] == 'ok':
+            urls = data['media_path']
+            return render(request,'Screens/display.html',{'urls':urls})
+    return render(request,'Screens/display_form.html')
 
 
 def get_uuid(x):

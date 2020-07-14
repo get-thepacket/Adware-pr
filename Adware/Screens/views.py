@@ -8,10 +8,20 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     form = ScreenForm()
     uuids=[]
+    msg = request.GET.get('info', '')
+    msgtype = request.GET.get('msgtype', 'error')
     for screen in Screens.objects.all():
         uuids.append(str(screen.id))
-    print(uuids)
-    return render(request, "Screens/index.html", {'f1':form,'user':str(request.user).split("@")[0],'uuid':uuids})
+    #print(uuids)
+    print(msg)
+    print(msgtype)
+    return render(request, "Screens/index.html",
+                  {'f1':form,
+                   'user':str(request.user).split("@")[0],
+                   'uuid':uuids,
+                   'info':msg,
+                   'msgtype':msgtype,
+                   })
 
 
 @login_required
@@ -23,9 +33,9 @@ def new_scr(request):
             obj.owner = request.user
             obj.save()
             print(get_uuid(obj.auto_id))
-            return redirect('/scr')
-    form = ScreenForm()
-    return render(request, "Screens/new.html", {'f1': form})
+            return redirect('/scr?info=New Screen added&msgtype=success')
+
+    return redirect('/scr?info=Some Error Occurred&msgtype=error')
 
 
 def get_uuid(x):

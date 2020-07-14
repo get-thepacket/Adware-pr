@@ -22,6 +22,7 @@ def index(request):
     msg = request.GET.get('info', '')
     msgtype = request.GET.get('msgtype', 'error')
     print(msg)
+    print(msgtype)
     subscription = []
     total_cost = 0
     for sub in DisplaysAd.objects.all():
@@ -35,7 +36,7 @@ def index(request):
                    'f1': form,
                    'AdMedia': user_media,
                    'info': msg,
-                   'msgtype': 'success',
+                   'msgtype': msgtype,
                    'total_cost':total_cost,
                    'subscription':subscription,
                    })

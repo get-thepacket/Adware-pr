@@ -29,7 +29,44 @@
       </div>
       </form>
       <!-- New Screen form Modal Ends -->
-      <!-- Start View Ads Modal -->
+        <!-- Start Subscription Modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="ViewAdv">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Your Screens</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <tr class="table-primary">
+                                <th>Screen Name</th>
+                                <th>Screen Size</th>
+                                <th>Advertisements Remaining</th>
+                                <th>Adware API token</th>
+                            </tr>
+
+                            {% for screen in screens %}
+                            <tr>
+                                <td> {{screen.description}} </td>
+                                <td>{{screen.type}}</td>
+                                <td>{{screen.ad_available}}</td>
+                                <td>{{screen.id}}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Subscription Modal -->
+      <!--
       <div class="modal fade" tabindex="-1" role="dialog" id="ViewAdv">
         <div class="modal-dialog modal-dialog-scrollable">
           <div class="modal-content">

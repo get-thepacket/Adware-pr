@@ -23,7 +23,7 @@ def new_scr(request):
             obj.owner = request.user
             obj.save()
             print(get_uuid(obj.auto_id))
-            return redirect('/')
+            return redirect('/scr')
     form = ScreenForm()
     return render(request, "Screens/new.html", {'f1': form})
 

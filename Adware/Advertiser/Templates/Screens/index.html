@@ -4,7 +4,11 @@
 
 {% load crispy_forms_tags %}
 <section id="services" class="services">
-
+    <!-- toast message -->
+      {% if info %}
+      <script>toastr.{{msgtype}}('{{info}}')</script>
+      {% endif %}
+    <!-- toast message end -->
       <!-- New Screen form Modal Starts -->
       <form  action="/scr/new/" method="post">
         {% csrf_token %}

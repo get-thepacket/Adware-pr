@@ -13,7 +13,7 @@
 - [x] work on subscriptions page.
 - [x] Login page bug when wrong credentials entered.
 - [ ] Screen owner profit metrics.
-- [ ] Restrict number of Advertisements per screen to 20.
+- [x] Restrict number of Advertisements per screen to 20.
 
 ### Final presentation 20/07 (tentative)
 ### please tick whatever is done and add more todo's as you have found.

@@ -18,3 +18,13 @@ class Screens(models.Model):
     landmarks = models.CharField(max_length=200)
     ad_available = models.IntegerField(default=20)
 
+
+class Waitlist(models.Model):
+    user_waiting = models.ForeignKey(User, on_delete=models.CASCADE)
+    screen = models.ForeignKey(Screens, on_delete=models.CASCADE)
+
+
+class WaitCount(models.Model):
+    screen = models.ForeignKey(Screens, on_delete=models.CASCADE)
+    count = models.IntegerField()
+

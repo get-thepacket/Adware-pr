@@ -2,6 +2,11 @@
 
 {% block content %}
 
+    <!-- toast message -->
+      {% if info %}
+      <script>toastr.{{msgtype}}('{{info}}')</script>
+      {% endif %}
+    <!-- toast message end -->
     <ul>
     <section id="pricing" class="pricing">
       <div class="container">

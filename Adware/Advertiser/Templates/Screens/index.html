@@ -12,7 +12,7 @@
       <!-- New Screen form Modal Starts -->
       <form  action="/scr/new/" method="post">
         {% csrf_token %}
-      <div class="modal fade" tabindex="-1" role="dialog" id="NewAd">
+      <div class="modal fade" tabindex="-1" role="dialog" id="NewScreen">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -34,8 +34,8 @@
       </form>
       <!-- New Screen form Modal Ends -->
         <!-- Start Subscription Modal -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="ViewAdv">
-            <div class="modal-dialog modal-dialog-scrollable" style="width: 100%">
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myscreens">
+        <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Your Screens</h5>
@@ -106,7 +106,7 @@
           <div class="col-md-6 d-flex align-items-stretch">
             <div class="card" style='background-image: url("../static/assets/img/more-services-1.jpg");' data-aos="fade-up" data-aos-delay="100">
               <div class="card-body">
-                <h5 class="card-title"><a href="" data-toggle="modal" data-target="#ViewAdv">My Screens</a></h5>
+                <h5 class="card-title"><a href="" data-toggle="modal" data-target="#myscreens">My Screens</a></h5>
                 <p class="card-text">check your screens</p>
               </div>
             </div>
@@ -114,8 +114,8 @@
           <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
             <div class="card" style='background-image: url("../static/assets/img/more-services-2.jpg");' data-aos="fade-up" data-aos-delay="200">
               <div class="card-body">
-                <h5 class="card-title"><a href="" data-toggle="modal" data-target="#NewAd">Add a screen</a></h5>
-                <p class="card-text">Wanna display one more add?. Here you go {{user}}</p>
+                <h5 class="card-title"><a href="" data-toggle="modal" data-target="#NewScreen">Add a screen</a></h5>
+                <p class="card-text">Wanna add one more screen?. Here you go {{user}}</p>
               </div>
             </div>
 

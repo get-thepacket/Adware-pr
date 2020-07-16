@@ -2,12 +2,76 @@
 
 {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+    <script src="/static/assets/js/notify.js"></script>
+
     <!-- toast message -->
       {% if info %}
       <script>toastr.{{msgtype}}('{{info}}')</script>
       {% endif %}
     <!-- toast message end -->
+    <!-- notify success modal starts -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="NotifySuc">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Notify Me!!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    You will be notified when screen is free for more advertisements. Thanks for your interest.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- notify modal ends -->
+    <!-- notify error modal starts -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="NotifyErr">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Advertisement</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Some Error Occurred
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- notify modal ends -->
+    <!-- notify already modal starts -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="NotifyAlr">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Advertisement</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Already subscribed to email notification for this screen.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- notify modal ends -->
     <ul>
     <section id="pricing" class="pricing">
       <div class="container">
@@ -54,7 +118,7 @@
           <p>{{total_screens}} Screens available for your search</p>
         </div>
     <div class="row">
-    {% for i in query_result %}
+    {% for i,flg in query_result %}
 
           <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
             <div class="box recommended" data-aos="zoom-in" data-aos-delay="50">
@@ -64,11 +128,20 @@
                 <li>Description: {{i.description}}</li>
                 <li>Address: {{i.address}}</li>
                 <li>Landmarks: {{i.landmarks}}</li>
-                <li>Ad space available: {{i.ad_available}}</li>
+                    {% if flg %}
+                  <li>Ad space available: {{i.ad_available}}</li>
+                    <div class="btn-wrap">
+                      <a href="/adv/publish/{{ad_id}}/{{i.auto_id}}" class="btn-buy">Publish</a>
+                    </div>
+                    {% endif %}
+                  {% if not flg %}
+                  <li>Not Available </li>
+                  <div class="btn-wrap">
+                      <button class="btn btn-primary" id="{{i.auto_id}}" onclick="ajax($(this));return false;">Notify Me</button>
+                  </div>
+                  {% endif %}
               </ul>
-              <div class="btn-wrap">
-                <a href="/adv/publish/{{ad_id}}/{{i.auto_id}}" class="btn-buy">Publish</a>
-              </div>
+
             </div>
           </div>
 

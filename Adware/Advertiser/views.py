@@ -25,7 +25,7 @@ def index(request):
     for i in range(1,len(user_media),2):
         print(user_media[i])
         user_media_pair.append([user_media[i-1],user_media[i]])
-    if i%2==1:
+    if len(user_media)%2==1:
         user_media_pair.append([user_media[len(user_media)-1],None])
     print(user_media_pair)
     subscription = []

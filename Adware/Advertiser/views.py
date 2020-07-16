@@ -286,9 +286,11 @@ def delete_ads(request):
             ad_object = AdMedia.objects.get(id=id)
         except AdMedia.DoesNotExist:
             return redirect('/adv')
-        if ad_object.username == request.user:
+        active_subscriptions = DisplaysAd.objects.filter(ad=ad_object)
+        print(active_subscriptions)
+        if not active_subscriptions and ad_object.username == request.user:
 
             ad_object.delete()
-            return redirect('/adv')
+            return redirect("/adv?info=Ad deleted&msgtype=success")
 
-    return redirect('/adv')
+    return redirect("/adv?info=Ad couldn't be deleted&msgtype=error")

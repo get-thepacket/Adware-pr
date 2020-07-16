@@ -1,3 +1,4 @@
 django==2.2.3
 django-crispy-forms
 requests
+pycryptodome

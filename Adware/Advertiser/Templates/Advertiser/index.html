@@ -43,8 +43,9 @@
                 </div>
                 <div class="modal-body">
                     {% for i,j in AdMedia %}
+                    {% if j %}
                     <div class="card-deck">
-                    <div class="card">
+                    <div class="card" style="width: 18rem;">
                         <img src="/media/{{ i.media }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ i.file_name }}</h5>
@@ -52,8 +53,7 @@
                             <a href="/adv/publish/{{i.id}}" class="btn btn-primary">Advertise</a>
                         </div>
                     </div>
-                    {% if j %}
-                    <div class="card">
+                    <div class="card" style="width: 18rem;">
                         <img src="/media/{{ j.media }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ j.file_name }}</h5>
@@ -61,8 +61,17 @@
                             <a href="/adv/publish/{{j.id}}" class="btn btn-primary">Advertise</a>
                         </div>
                     </div>
-                    {% endif %}
                     </div>
+                    {% else %}
+                    <div class="card" style="width: 18rem;">
+                        <img src="/media/{{ i.media }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ i.file_name }}</h5>
+                            <p class="card-text"><!-- Some random text here --></p>
+                            <a href="/adv/publish/{{i.id}}" class="btn btn-primary">Advertise</a>
+                        </div>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     {% if not AdMedia %}
                     <p>Nothing to show here !!</p>

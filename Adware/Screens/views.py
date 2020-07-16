@@ -42,6 +42,7 @@ def new_scr(request):
 
 def display(request):
     uuid = request.GET.get('uuid','')
+    screen_empty = "not_empty";
     if uuid:
         url='http://127.0.0.1:8000/api?id='+uuid
         print(url)
@@ -49,7 +50,12 @@ def display(request):
         data = data.json()
         if data['status'] == 'ok':
             urls = data['media_path']
-            return render(request,'Screens/display.html',{'urls':urls})
+            if len(urls)==1:
+                urls.append(urls[0])
+            print(len(urls))
+            if len(urls)==0:
+                screen_empty = "";
+            return render(request,'Screens/display.html',{'urls':urls , 'screen_empty':screen_empty})
     return render(request,'Screens/display_form.html')
 
 

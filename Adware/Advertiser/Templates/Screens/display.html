@@ -7,13 +7,23 @@
   <p>Name to be written here</p>
 </div>
 <!-- Carousel starts -->
+{% if not screen_empty %}
+<div class = "container">
+<div class="fadein">
+  <img src = "../static/assets/img/adware.png">
+  <img src = "../static/assets/img/adware.png">
+</div>
+</div>
+{% else %}
 <div class = "container">
 <div class="fadein">
   {% for i in urls%}
   <img src = "/media/{{i}}">
   {% endfor %}
 </div>
-  <br><br>
+</div>
+<br><br>
+{% endif %}
 <!-- Carousel ends -->
 </section>
 {% endblock %}

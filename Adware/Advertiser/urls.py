@@ -9,4 +9,5 @@ urlpatterns = [
     path('/publish/<ad_id>/<screen_id>', views.publish),
     path('/exp', views.expire),
     path('/handlerequest', views.handlerequest),
+    path('/wait', views.notify),
 ]

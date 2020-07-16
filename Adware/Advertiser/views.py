@@ -30,8 +30,11 @@ def index(request):
     for i in range(1,len(user_media),2):
         print(user_media[i])
         user_media_pair.append([user_media[i-1],user_media[i]])
+
         if i%2==1:
             user_media_pair.append([user_media[len(user_media)-1],None])
+    if len(user_media)%2==1:
+        user_media_pair.append([user_media[len(user_media)-1],None])
     print(user_media_pair)
     subscription = []
     total_cost = 0
@@ -113,7 +116,7 @@ def screen_select(request, ad_id):
     msgtype = request.GET.get('msgtype', 'error')
 
     search = request.GET.get('search', '')
-    Screen = [i for i in Screens.objects.all() if i.ad_available > 0]
+    Screen = [(i,(i.ad_available>0)) for i in Screens.objects.all()]
     query_result = []
     screen_size_filter_flag = False
     big_size_flag = False
@@ -129,21 +132,21 @@ def screen_select(request, ad_id):
         screen_size_filter_flag = True
         sml_size_flag = True
 
-    for screen in Screen:
+    for screen,_ in Screen:
         # print(screen.address,screen.landmarks,search)
         if (search in screen.address) or (search in screen.landmarks):
             if screen_size_filter_flag:
                 size = screen.type
                 if size == 'Big' and big_size_flag:
-                    query_result.append(screen)
+                    query_result.append((screen,_))
                 elif size == 'Small' and sml_size_flag:
-                    query_result.append(screen)
+                    query_result.append((screen,_))
                 elif size == 'Medium' and med_size_flag:
-                    query_result.append(screen)
+                    query_result.append((screen,_))
                 else:
                     continue
             else:
-                query_result.append(screen)
+                query_result.append((screen,_))
     print(query_result)
     total_screens = len(query_result)
     print(total_screens)
@@ -241,13 +244,24 @@ def expire(request):
 
 
 @login_required
-def notify(request,screen_id):
+def notify(request):
+    screen_id = request.GET.get('id','')
+    if not screen_id:
+        return HttpResponse('error')
     user = request.user
-    screen = Screens.objects.get(auto_id=screen_id)
-    waitlist_obj = Waitlist()
-    waitlist_obj.user_waiting = user
-    waitlist_obj.screen = screen
-    waitlist_obj.save()
+    try:
 
+        screen = Screens.objects.get(auto_id=screen_id)
+    except Screens.DoesNotExist:
+        return HttpResponse('error')
+    try:
+        x=Waitlist.objects.get(user_waiting=user, screen=screen)
+    except Waitlist.DoesNotExist:
 
+        waitlist_obj = Waitlist()
+        waitlist_obj.user_waiting = user
+        waitlist_obj.screen = screen
+        waitlist_obj.save()
+        return HttpResponse('success')
 
+    return HttpResponse('already')

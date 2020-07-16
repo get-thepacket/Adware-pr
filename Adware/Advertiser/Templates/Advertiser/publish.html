@@ -1,7 +1,8 @@
 {% extends 'Advertiser/base.html' %}
 
 {% block content %}
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <!-- toast message -->
       {% if info %}
       <script>toastr.{{msgtype}}('{{info}}')</script>
@@ -76,4 +77,5 @@
       </div>
     </section><!-- End Pricing Section -->
     </ul>
+
 {% endblock %}

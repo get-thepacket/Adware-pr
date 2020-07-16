@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import AdMediaForm
 from .models import AdMedia, DisplaysAd
-from Screens.models import Screens
+from Screens.models import Screens, Waitlist, WaitCount
 from django.http import HttpResponse
 from django.conf import settings
 from datetime import datetime, timedelta
@@ -203,3 +203,16 @@ def expire(request):
                 obj.delete()
         return HttpResponse('expired subscriptions removed')
     return redirect('/')
+
+
+@login_required
+def notify(request,screen_id):
+    user = request.user
+    screen = Screens.objects.get(auto_id=screen_id)
+    waitlist_obj = Waitlist()
+    waitlist_obj.user_waiting = user
+    waitlist_obj.screen = screen
+    waitlist_obj.save()
+
+
+

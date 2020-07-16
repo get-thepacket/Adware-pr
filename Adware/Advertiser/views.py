@@ -21,8 +21,13 @@ def index(request):
     user_media = AdMedia.objects.filter(username=request.user)
     msg = request.GET.get('info', '')
     msgtype = request.GET.get('msgtype', 'error')
-    print(msg)
-    print(msgtype)
+    user_media_pair = []
+    for i in range(1,len(user_media),2):
+        print(user_media[i])
+        user_media_pair.append([user_media[i-1],user_media[i]])
+    if i%2==1:
+        user_media_pair.append([user_media[len(user_media)-1],None])
+    print(user_media_pair)
     subscription = []
     total_cost = 0
     for sub in DisplaysAd.objects.all():
@@ -30,11 +35,10 @@ def index(request):
             cost = pricing[sub.screen.type]
             subscription.append((sub, cost))
             total_cost+=cost
-    print(subscription,total_cost)
     return render(request, "Advertiser/index.html",
                   {'user': str(request.user).split("@")[0],
                    'f1': form,
-                   'AdMedia': user_media,
+                   'AdMedia': user_media_pair,
                    'info': msg,
                    'msgtype': msgtype,
                    'total_cost':total_cost,

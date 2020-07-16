@@ -277,3 +277,18 @@ def notify(request):
         return HttpResponse('success')
 
     return HttpResponse('already')
+
+
+def delete_ads(request):
+    id = request.GET.get('id','')
+    if id:
+        try:
+            ad_object = AdMedia.objects.get(id=id)
+        except AdMedia.DoesNotExist:
+            return redirect('/adv')
+        if ad_object.username == request.user:
+
+            ad_object.delete()
+            return redirect('/adv')
+
+    return redirect('/adv')

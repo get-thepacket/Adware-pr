@@ -10,4 +10,5 @@ urlpatterns = [
     path('/exp', views.expire),
     path('/handlerequest', views.handlerequest),
     path('/wait', views.notify),
+    path('/delete', views.delete_ads),
 ]

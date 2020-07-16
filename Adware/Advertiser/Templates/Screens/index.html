@@ -54,10 +54,16 @@
 
                             {% for screen in screens %}
                             <tr>
+                              
                                 <td> {{screen.description}} </td>
                                 <td>{{screen.type}}</td>
                                 <td>{{screen.ad_available}}</td>
-                                <td>{{screen.id}}</td>
+                                <td>
+                                <button class="copy-button" data-clipboard-text="{{screen.id}}">Copy</button>
+                                <!-- <button class="btn" onclick="copyToClipboard('{{screen.id}}')"> -->
+                                
+                                </td>
+                                
                             </tr>
                             {% endfor %}
 
@@ -132,4 +138,44 @@
 
       </div>
     </section><!-- End of Services Section -->
+    <script>
+      // var btn = document.getElementsByClassName('btn');
+      var clipboard = new ClipboardJS('.copy-button');
+      clipboard.on('success', function(e) {
+        console.log(e);
+    });
+
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+//     const copyToClipboard = str => {
+//   const el = document.createElement('textarea');
+//   el.value = str;
+//   el.setAttribute('readonly', '');
+//   el.style.position = 'absolute';
+//   el.style.left = '-9999px';
+//   document.body.appendChild(el);
+//   const selected =
+//     document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+//   el.select();
+//   document.execCommand('copy');
+//   document.body.removeChild(el);
+//   if (selected) {
+//     document.getSelection().removeAllRanges();
+//     document.getSelection().addRange(selected);
+//   }
+// };
+      // const td = document.getElementsByTagName('td');
+      // td.addEventListener("copy", () => {
+      //   event.preventDefault();
+      //   if(event.clipboardData){
+      //     event.clipboardData.setData('text/plain',td.textContent);
+      //     console.log(event.clipboardData.getData("text"));
+      //   }
+      // });
+
+      // function clicker(){
+      //   document.execCommand("copy");
+      // }
+    </script>
 {% endblock %}

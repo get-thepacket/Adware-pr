@@ -7,6 +7,11 @@ from django.http import HttpResponse
 from django.conf import settings
 from datetime import datetime, timedelta
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+from Paytm import Checksum
+
+MERCHANT_KEY = 'kbzk1DSbJiV_O3p5'
+
 
 """
 Note: put login required decorator for all functions
@@ -25,8 +30,8 @@ def index(request):
     for i in range(1,len(user_media),2):
         print(user_media[i])
         user_media_pair.append([user_media[i-1],user_media[i]])
-    if i%2==1:
-        user_media_pair.append([user_media[len(user_media)-1],None])
+        if i%2==1:
+            user_media_pair.append([user_media[len(user_media)-1],None])
     print(user_media_pair)
     subscription = []
     total_cost = 0
@@ -185,7 +190,37 @@ def publish(request, ad_id, screen_id):
     screen.ad_available = screen.ad_available - 1
     screen.save()
     display.save()
-    return redirect('/adv/publish/' + str(ad_id) + '?info=Advertisement Published&msgtype=success')
+
+    if screen.type == 'Big':
+        cost = 100
+
+    elif screen.type == 'Small':
+        cost = 25
+
+    else:
+        cost = 50
+
+    param_dict={
+        'MID': 'WorldP64425807474247',
+        'ORDER_ID': str(ad_id),
+        'TXN_AMOUNT': str(cost),
+        'CUST_ID': str(ad_id),
+        'INDUSTRY_TYPE_ID': 'Retail',
+        'WEBSITE': 'WEBSTAGING',
+        'CHANNEL_ID': 'WEB',
+        'CALLBACK_URL': 'http://127.0.0.1:8000/adv/handlerequest',
+    }
+
+    param_dict['CHECKSUMHASH']=Checksum.generate_checksum(param_dict, MERCHANT_KEY)
+
+    return render(request, 'Advertiser/paytm.html', {'param_dict': param_dict})
+
+
+@csrf_exempt
+def handlerequest(request):
+
+    return HttpResponse('done')
+    pass
 
 
 @login_required

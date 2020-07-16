@@ -27,6 +27,17 @@ def index(request):
     msg = request.GET.get('info', '')
     msgtype = request.GET.get('msgtype', 'error')
     user_media_pair = []
+    temp=[]
+    for i in user_media:
+        if temp:
+            temp.append(i)
+            user_media_pair.append(temp)
+            temp=[]
+        else:
+            temp.append(i)
+    if temp:
+        user_media_pair.append(temp)
+    """"
     for i in range(1,len(user_media),2):
         print(user_media[i])
         user_media_pair.append([user_media[i-1],user_media[i]])
@@ -35,6 +46,7 @@ def index(request):
             user_media_pair.append([user_media[len(user_media)-1],None])
     if len(user_media)%2==1:
         user_media_pair.append([user_media[len(user_media)-1],None])
+    """
     print(user_media_pair)
     subscription = []
     total_cost = 0

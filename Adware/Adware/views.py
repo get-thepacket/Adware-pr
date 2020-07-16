@@ -152,3 +152,5 @@ def api(request):
         response['status'] = 'not found'
     return HttpResponse(json.dumps(response), content_type="application/json")
 
+def privacy_policy(request):
+    return render(request, 'Advertiser/privacy-policy.html')

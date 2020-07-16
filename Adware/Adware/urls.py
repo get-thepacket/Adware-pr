@@ -30,6 +30,7 @@ urlpatterns = [
     path('scr', include('Screens.urls')),
     path('media/<media_name>', media),
     path('api/', views.api),
+    path('api/privacy/',views.privacy_policy)
 
 ]
 

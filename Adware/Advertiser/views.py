@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from Paytm import Checksum
 
-MERCHANT_KEY = 'kbzk1DSbJiV_O3p5'
+MERCHANT_KEY = 'GvYRwo%@Vl2Ml19y'
 
 
 """
@@ -204,7 +204,7 @@ def publish(request, ad_id, screen_id):
         cost = 50
 
     param_dict={
-        'MID': 'WorldP64425807474247',
+        'MID': 'BiDzIl44175596745392',
         'ORDER_ID': str(ad_id),
         'TXN_AMOUNT': str(cost),
         'CUST_ID': str(ad_id),

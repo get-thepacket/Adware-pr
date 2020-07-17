@@ -276,7 +276,7 @@ def notify(request):
         waitlist_obj.user_waiting = user
         waitlist_obj.screen = screen
         waitlist_obj.save()
-        send_mail('Adware', 'You will be notified if screen becomes empty', EMAIL_HOST_USER, [user], fail_silently=False)
+        #send_mail('Adware', 'You will be notified if screen becomes empty', EMAIL_HOST_USER, [user], fail_silently=False)
         return HttpResponse('success')
 
     return HttpResponse('already')

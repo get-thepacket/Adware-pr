@@ -54,7 +54,7 @@ def index(request):
                     o1.save()
                     info = "user created successfully"
                     msgtype = "success"
-                    send_mail('Adware Welcomes you', 'signup successfull', EMAIL_HOST_USER, [email], fail_silently=False)
+                    #send_mail('Adware Welcomes you', 'signup successfull', EMAIL_HOST_USER, [email], fail_silently=False)
             else:
                 info = "Passwords don't match"
                 msgtype='error'
@@ -73,7 +73,7 @@ def index(request):
                     msgtype = "success"
                     login(request,user)
                     print(user)
-                    send_mail('Welcome Back',info, EMAIL_HOST_USER, [email], fail_silently=False)
+                    #send_mail('Welcome Back',info, EMAIL_HOST_USER, [email], fail_silently=False)
                 else:
                     info = "invalid credentials"
                     msgtype = "warning"

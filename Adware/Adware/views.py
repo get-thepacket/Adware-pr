@@ -10,7 +10,8 @@ from Screens.models import Screens
 from Advertiser.models import AdMedia, DisplaysAd
 import uuid
 import json
-
+from django.core.mail import send_mail
+from Adware.settings import EMAIL_HOST_USER
 
 def index(request):
     info = ""
@@ -53,6 +54,7 @@ def index(request):
                     o1.save()
                     info = "user created successfully"
                     msgtype = "success"
+                    send_mail('Adware Welcomes you', 'signup successfull', EMAIL_HOST_USER, [email], fail_silently=False)
             else:
                 info = "Passwords don't match"
                 msgtype='error'
@@ -65,11 +67,13 @@ def index(request):
                 user = loginform.cleaned_data['username']
                 pswd = loginform.cleaned_data['password']
                 user = authenticate(username=user,password=pswd)
+                email = str(user)
                 if user is not None:
                     info = "logged in successfully"
                     msgtype = "success"
                     login(request,user)
                     print(user)
+                    send_mail('Welcome Back',info, EMAIL_HOST_USER, [email], fail_silently=False)
                 else:
                     info = "invalid credentials"
                     msgtype = "warning"

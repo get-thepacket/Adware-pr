@@ -9,6 +9,8 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from Paytm import Checksum
+from django.core.mail import send_mail
+from Adware.settings import EMAIL_HOST_USER
 
 MERCHANT_KEY = 'kbzk1DSbJiV_O3p5'
 
@@ -274,6 +276,7 @@ def notify(request):
         waitlist_obj.user_waiting = user
         waitlist_obj.screen = screen
         waitlist_obj.save()
+        send_mail('Adware', 'You will be notified if screen becomes empty', EMAIL_HOST_USER, [user], fail_silently=False)
         return HttpResponse('success')
 
     return HttpResponse('already')

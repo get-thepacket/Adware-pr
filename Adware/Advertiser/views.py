@@ -9,6 +9,8 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from Paytm import Checksum
+from django.core.mail import send_mail
+from Adware.settings import EMAIL_HOST_USER
 
 MERCHANT_KEY = 'GvYRwo%@Vl2Ml19y'
 
@@ -27,6 +29,17 @@ def index(request):
     msg = request.GET.get('info', '')
     msgtype = request.GET.get('msgtype', 'error')
     user_media_pair = []
+    temp=[]
+    for i in user_media:
+        if temp:
+            temp.append(i)
+            user_media_pair.append(temp)
+            temp=[]
+        else:
+            temp.append(i)
+    if temp:
+        user_media_pair.append(temp)
+    """"
     for i in range(1,len(user_media),2):
         print(user_media[i])
         user_media_pair.append([user_media[i-1],user_media[i]])
@@ -35,6 +48,7 @@ def index(request):
             user_media_pair.append([user_media[len(user_media)-1],None])
     if len(user_media)%2==1:
         user_media_pair.append([user_media[len(user_media)-1],None])
+    """
     print(user_media_pair)
     subscription = []
     total_cost = 0
@@ -262,6 +276,25 @@ def notify(request):
         waitlist_obj.user_waiting = user
         waitlist_obj.screen = screen
         waitlist_obj.save()
+        #send_mail('Adware', 'You will be notified if screen becomes empty', EMAIL_HOST_USER, [user], fail_silently=False)
         return HttpResponse('success')
 
     return HttpResponse('already')
+
+
+@login_required
+def delete_ads(request):
+    id = request.GET.get('id','')
+    if id:
+        try:
+            ad_object = AdMedia.objects.get(id=id)
+        except AdMedia.DoesNotExist:
+            return redirect('/adv')
+        active_subscriptions = DisplaysAd.objects.filter(ad=ad_object)
+        print(active_subscriptions)
+        if not active_subscriptions and ad_object.username == request.user:
+
+            ad_object.delete()
+            return redirect("/adv?info=Ad deleted&msgtype=success")
+
+    return redirect("/adv?info=Ad couldn't be deleted&msgtype=error")

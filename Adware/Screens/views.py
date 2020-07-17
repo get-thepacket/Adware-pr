@@ -40,6 +40,7 @@ def new_scr(request):
     return redirect('/scr?info=Some Error Occurred&msgtype=error')
 
 
+@login_required
 def display(request):
     uuid = request.GET.get('uuid','')
     screen_empty = "not_empty";
@@ -49,13 +50,16 @@ def display(request):
         data = requests.request('GET',url)
         data = data.json()
         if data['status'] == 'ok':
+            screen_name = Screens.objects.get(id=uuid)
+            screen_name = screen_name.description
+            print(screen_name)
             urls = data['media_path']
             if len(urls)==1:
                 urls.append(urls[0])
             print(len(urls))
             if len(urls)==0:
                 screen_empty = "";
-            return render(request,'Screens/display.html',{'urls':urls , 'screen_empty':screen_empty})
+            return render(request,'Screens/display.html',{'urls':urls , 'screen_empty':screen_empty,'screen_name': screen_name})
     return render(request,'Screens/display_form.html')
 
 

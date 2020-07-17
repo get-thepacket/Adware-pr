@@ -282,6 +282,7 @@ def notify(request):
     return HttpResponse('already')
 
 
+@login_required
 def delete_ads(request):
     id = request.GET.get('id','')
     if id:

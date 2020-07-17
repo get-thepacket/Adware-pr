@@ -4,6 +4,7 @@
 
 {% load crispy_forms_tags %}
 <section id="services" class="services">
+    <script src="/static/assets/js/copy.js"></script>
     <!-- toast message -->
       {% if info %}
       <script>toastr.{{msgtype}}('{{info}}')</script>
@@ -59,9 +60,9 @@
                                 <td>{{screen.type}}</td>
                                 <td>{{screen.ad_available}}</td>
                                 <td>
-                                <button class="copy-button" data-clipboard-text="{{screen.id}}">Copy</button>
-                                <!-- <button class="btn" onclick="copyToClipboard('{{screen.id}}')"> -->
-                                
+                                    <input value="{{screen.id}}" readonly>
+                                    <button href="#" id="Screen{{screen.auto_id}}" class="copy-button btn btn-primary" data-clipboard-text="{{screen.id}}" onclick="copy($(this));">Copy</button>
+                                    <!-- <button class="btn" onclick="copyToClipboard('{{screen.id}}')"> -->
                                 </td>
                                 
                             </tr>
@@ -138,44 +139,5 @@
 
       </div>
     </section><!-- End of Services Section -->
-    <script>
-      // var btn = document.getElementsByClassName('btn');
-      var clipboard = new ClipboardJS('.copy-button');
-      clipboard.on('success', function(e) {
-        console.log(e);
-    });
 
-    clipboard.on('error', function(e) {
-        console.log(e);
-    });
-//     const copyToClipboard = str => {
-//   const el = document.createElement('textarea');
-//   el.value = str;
-//   el.setAttribute('readonly', '');
-//   el.style.position = 'absolute';
-//   el.style.left = '-9999px';
-//   document.body.appendChild(el);
-//   const selected =
-//     document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
-//   el.select();
-//   document.execCommand('copy');
-//   document.body.removeChild(el);
-//   if (selected) {
-//     document.getSelection().removeAllRanges();
-//     document.getSelection().addRange(selected);
-//   }
-// };
-      // const td = document.getElementsByTagName('td');
-      // td.addEventListener("copy", () => {
-      //   event.preventDefault();
-      //   if(event.clipboardData){
-      //     event.clipboardData.setData('text/plain',td.textContent);
-      //     console.log(event.clipboardData.getData("text"));
-      //   }
-      // });
-
-      // function clicker(){
-      //   document.execCommand("copy");
-      // }
-    </script>
 {% endblock %}

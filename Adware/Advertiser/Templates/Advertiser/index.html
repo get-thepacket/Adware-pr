@@ -42,33 +42,41 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table>
-                        <tr>
-                        <th></th>
-                        <th></th>
-                            </tr>
-                        {% for j in AdMedia %}
-                        <div class="card-deck">
-                            <tr>
-                            {% for i in j%}
-                            <td>
-                            <div class="card" style="width: 18rem;">
-                                <img src="/media/{{ i.media }}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ i.file_name }}</h5>
-                                    <p class="card-text"><!-- Some random text here --></p>
-                                    <a href="/adv/publish/{{i.id}}" class="btn btn-primary">Advertise</a>
-                                    <a href="/adv/delete?id={{i.id}}" class="btn btn-danger">Delete</a>
-                                </div>
+                    {% for i,j in AdMedia %}
+                    <div class="card-deck">
+                        <div class="card">
+                            <div class="card-body">
+                            <img src="/media/{{ i.media }}" class="card-img-top" alt="Card image cap">
+                                <h5 class="card-title">{{ i.file_name }}</h5>
+                                <p class="card-text"><!-- Some random text here --></p>
+                                <a href="/adv/publish/{{i.id}}" class="btn btn-primary">Advertise</a>
+                                <a href="/adv/delete?id={{i.id}}" class="btn btn-danger">Delete</a>
                             </div>
-                            </td>
-                            {% endfor %}
-                            </tr>
                         </div>
-
+                        <div class="card">
+                            <div class="card-body">
+                            <img src="/media/{{ j.media }}" class="card-img-top" alt="Card image cap">
+                                <h5 class="card-title">{{ j.file_name }}</h5>
+                                <p class="card-text"><!-- Some random text here --></p>
+                                <a href="/adv/publish/{{j.id}}" class="btn btn-primary">Advertise</a>
+                                <a href="/adv/delete?id={{j.id}}" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
                     {% endfor %}
-                    </table>
-                    {% if not AdMedia %}
+                    {% if temp %}
+                    <div class="card" style="width: 23rem;">
+                        <img src="/media/{{ temp.0.media }}" class="card-img-top" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ temp.0.file_name }}</h5>
+                            <p class="card-text"><!-- Some random text here --></p>
+                            <a href="/adv/publish/{{temp.0.id}}" class="btn btn-primary">Advertise</a>
+                            <a href="/adv/delete?id={{temp.0.id}}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if not AdMedia and not temp%}
                     <p>Nothing to show here !!</p>
                     {% endif %}
                 </div>

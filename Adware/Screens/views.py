@@ -138,7 +138,17 @@ def get_cost(request):
     return HttpResponse(str(cost))
 
 
-
+def get_cost_inner(id):
+    try:
+        screen_obj = Screens.objects.get(auto_id=id)
+        screencost_obj = ScreenCost.objects.get(screen=screen_obj)
+    except Screens.DoesNotExist:
+        return HttpResponse('0')
+    except ScreenCost.DoesNotExist:
+        return HttpResponse('0')
+    cost = base_cost[screen_obj.type]
+    cost += screencost_obj.cost
+    return cost
 
 
 

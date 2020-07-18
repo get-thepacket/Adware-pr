@@ -14,11 +14,32 @@
 <div class="container my-5">
         <h2>Your OrderID <span class="badge badge-primary badge-pill">{{response.ORDERID}}</span></h2>
         {% if response.RESPCODE == '01' %}
-        <h1>Payment <a href="/adv" class="badge badge-success">Success</a></h1>
+        <h1 class="badge badge-success">Payement Successfull</a></h1>
+        <h3>Redirecting in</h3><div id="counter">10</div>
+        <script>
+        setInterval(function() {
+            var div = document.querySelector("#counter");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                window.location.replace("/adv?info=Add uploaded successfully&msgtype=success");
+            }
+        }, 1000);
+        </script>
         {% else %}
-        <h1>Payment <a href="/adv" class="badge badge-danger">Failed</a></h1>
-        {% endif%}
-
+        <h1 class="badge badge-danger">Payement Failed</a></h1>
+        <h3>Redirecting in</h3><div id="counter">10</div>
+        <script>
+        setInterval(function() {
+            var div = document.querySelector("#counter");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                window.location.replace("/adv?info=Add Failed to upload&msgtype=error");
+            }
+        }, 1000);
+        </script>
+        {% endif %}
 </div>
  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

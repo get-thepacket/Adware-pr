@@ -248,7 +248,6 @@ def handlerequest(request, transaction_id):
             print('order successful')
         else:
             print('order was not successful because' + response_dict['RESPMSG'])
-            return redirect('/adv?info=Transaction Failed&msgtype=error')
     return render(request, 'Advertiser/paymentstatus.html', {'response': response_dict})
 
 

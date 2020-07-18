@@ -92,7 +92,7 @@
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Your Subscriptions</h5>
+                    <h5 class="modal-title">Active Subscriptions</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -100,21 +100,20 @@
                 <div class="modal-body">
                     <table class="table table-hover">
                         <tr class="table-primary">
-                            <th>Screen Name</th>
+                            <th>Ad Name</th>
                             <th>Screen Size</th>
-                            <th>Cost</th>
+                            <th>Screen Name</th>
                         </tr>
 
-                        {% for sub,i in subscription %}
+                        {% for i,j,k in subscription %}
                         <tr>
-                            <td> {{sub.screen.description}} </td>
-                            <td>{{sub.screen.type}}</td>
-                            <td>{{i}}</td>
+                            <td> {{i}} </td>
+                            <td>{{j}}</td>
+                            <td>{{k}}</td>
                         </tr>
                         {% endfor %}
 
                     </table>
-                    <h6>Total Cost: {{total_cost}}</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -154,7 +153,7 @@
                     <div class="col-md-6 d-flex align-items-stretch mt-4">
                         <div class="card" style='background-image: url("../static/assets/img/Subscriptions.jpg");' data-aos="fade-up" data-aos-delay="100">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="" data-toggle="modal" data-target="#MySubs"">My Subscriptions</a></h5>
+                                <h5 class="card-title"><a href="" data-toggle="modal" data-target="#MySubs"">Active Subscriptions</a></h5>
                                 <p class="card-text">Manage your active subscriptions and if you don't have go for one</p>
                             </div>
                         </div>

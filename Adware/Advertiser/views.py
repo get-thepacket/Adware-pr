@@ -9,6 +9,8 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from Paytm import Checksum
+import random
+import string
 from django.core.mail import send_mail
 from Adware.settings import EMAIL_HOST_USER
 
@@ -204,7 +206,7 @@ def publish(request, ad_id, screen_id):
     display = DisplaysAd()
     display.ad = ad
     display.screen = screen
-    screen.ad_available = screen.ad_available - 1
+    screen.ad_available= screen.ad_available-1
     screen.save()
     display.save()
 
@@ -217,11 +219,19 @@ def publish(request, ad_id, screen_id):
     else:
         cost = 50
 
+    for x in range(10):
+        # print 10 random values between
+        # 1 and 100 which are multiple of 5
+        ra = ''.join([random.choice(string.ascii_letters
+                                        + string.digits) for n in range(10)])
+
+    print(screen_id)
+
     param_dict={
         'MID': 'BiDzIl44175596745392',
-        'ORDER_ID': str(ad_id),
+        'ORDER_ID': str(ra),
         'TXN_AMOUNT': str(cost),
-        'CUST_ID': str(ad_id),
+        'CUST_ID': str(screen_id),
         'INDUSTRY_TYPE_ID': 'Retail',
         'WEBSITE': 'WEBSTAGING',
         'CHANNEL_ID': 'WEB',
@@ -235,9 +245,21 @@ def publish(request, ad_id, screen_id):
 
 @csrf_exempt
 def handlerequest(request):
+    # paytm will send you post request here
+    form = request.POST
+    response_dict = {}
+    for i in form.keys():
+        response_dict[i] = form[i]
+        if i == 'CHECKSUMHASH':
+            checksum = form[i]
 
-    return HttpResponse('done')
-    pass
+    verify = Checksum.verify_checksum(response_dict, MERCHANT_KEY, checksum)
+    if verify:
+        if response_dict['RESPCODE'] == '01':
+            print('order successful')
+        else:
+            print('order was not successful because' + response_dict['RESPMSG'])
+    return render(request, 'Advertiser/paymentstatus.html', {'response': response_dict})
 
 
 @login_required

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import AdMediaForm
-from .models import AdMedia, DisplaysAd
+from .models import AdMedia, DisplaysAd,Subscription
 from Screens.models import Screens, Waitlist, WaitCount, ScreenCost, ScreenStats
 from Screens.views import get_cost_inner , calculate_cost
 from django.http import HttpResponse
@@ -194,11 +194,6 @@ def publish(request, ad_id, screen_id):
         return redirect('/adv/publish/' + str(ad_id) + '?info=Some Error Occurred&msgtype=error')
     if screen.ad_available <=0:
         return redirect('/adv/publish/' + str(ad_id) + '?info=Screen not available&msgtype=warning')
-    display = DisplaysAd()
-    display.ad = ad
-    display.screen = screen
-    screen.save()
-    display.save()
 
 
 
@@ -210,6 +205,9 @@ def publish(request, ad_id, screen_id):
 
     print(screen_id)
     cost = get_cost_inner(screen.auto_id)
+    sub_obj = Subscription(gateway_id=str(ra),screen=screen,ad=ad,cost=cost)
+    sub_obj.save()
+    print('subcription_id',sub_obj.transaction_id)
     param_dict={
         'MID': 'BiDzIl44175596745392',
         'ORDER_ID': str(ra),
@@ -218,7 +216,7 @@ def publish(request, ad_id, screen_id):
         'INDUSTRY_TYPE_ID': 'Retail',
         'WEBSITE': 'WEBSTAGING',
         'CHANNEL_ID': 'WEB',
-        'CALLBACK_URL': 'http://127.0.0.1:8000/adv/handlerequest/'+str(screen_id),
+        'CALLBACK_URL': 'http://127.0.0.1:8000/adv/handlerequest/'+str(sub_obj.transaction_id),
     }
 
     param_dict['CHECKSUMHASH']=Checksum.generate_checksum(param_dict, MERCHANT_KEY)
@@ -227,12 +225,13 @@ def publish(request, ad_id, screen_id):
 
 
 @csrf_exempt
-def handlerequest(request, screen_id):
+def handlerequest(request, transaction_id):
     # paytm will send you post request here
-    for screens in Screens.objects.all():
-        if screens.auto_id == int(screen_id):
-            screen = screens
-            break
+    try:
+        sub_obj = Subscription.objects.get(transaction_id=transaction_id)
+    except Subscription.DoesNotExist:
+        print("Invalid Subscription ID")
+        return redirect('/adv')
 
     form = request.POST
     response_dict = {}
@@ -241,9 +240,13 @@ def handlerequest(request, screen_id):
         if i == 'CHECKSUMHASH':
             checksum = form[i]
 
+    screen = sub_obj.screen
     verify = Checksum.verify_checksum(response_dict, MERCHANT_KEY, checksum)
     if verify:
-        if response_dict['RESPCODE'] == '01':
+        if response_dict['RESPCODE'] == '01' and screen.ad_available>0:
+            ad = sub_obj.ad
+            disAd = DisplaysAd(screen=screen,ad=ad)
+            disAd.save()
             screen.ad_available = screen.ad_available - 1
             screen.save()
             print('order successful')

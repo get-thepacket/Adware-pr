@@ -5,10 +5,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Adware Screens</title>
+  <title>Adware Advertiser</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
-
+  <style>
+  .fadein { position:relative; height:500px; width:500px; }
+  .fadein img {position:absolute;left:300px;top:10px;height:100%;width:100%}
+  </style>
   <!-- Favicons -->
   <link href="../../static/assets/img/favicon.png" rel="icon">
   <link href="../../static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -25,7 +28,19 @@
   <link href="../../static/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="../../static/assets/vendor/venobox/venobox.css" rel="stylesheet">
   <link href="../../static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <!--Toast CSS-->
+  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="../../static/assets/vendor/clipboard.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <script>
+  $(function(){
+	$('.fadein img:gt(0)').hide();
+	setInterval(function(){$('.fadein :first-child').fadeOut().next('img').fadeIn().end().appendTo('.fadein');}, 3000);
+  });
+</script>
   <!-- Template Main CSS File -->
   <link href="../../static/assets/css/style.css" rel="stylesheet">
 
@@ -52,7 +67,7 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="active"><a href="/">Home</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Contact</a></li>
 
           <li class="get-started"><a href="/accounts/logout?next=/">Logout</a></li>
         </ul>
@@ -79,7 +94,7 @@
             <div class="contact-about">
               <h3>Adware</h3>
               <p>We are just trying to let people see how the advertisements work and where they are shown. We as a company wants our clients to have full transparency towards our approach.</p>
-              
+
               <!-- <p>Cras fermentum odio eu feugiat. Justo eget magna fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p> -->
               <div class="social-links">
                 <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
@@ -137,7 +152,9 @@
             </form>
           </div>
           --->
+
         </div>
+
       </div>
     </section><!-- End Contact Section -->
   </main>

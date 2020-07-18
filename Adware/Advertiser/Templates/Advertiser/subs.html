@@ -1,0 +1,30 @@
+{% extends 'Advertiser/base.html' %}
+
+{% block content %}
+<section id="services" class="services">
+    <div class="section-title" data-aos="fade-up">
+            <h2>Welcome {{user}}</h2>
+            <p>All your subscriptions with Adware</p>
+        </div>
+    <div class="container">
+    <table class="table table-hover">
+        <tr class="table-primary">
+            <th>Transaction ID</th>
+            <th>Gateway ID</th>
+            <th>Ad Name</th>
+            <th>Screen Size</th>
+            <th>cost</th>
+        </tr>
+        {% for i in subs %}
+            <tr>
+                <td>{{i.transaction_id}}</td>
+                <td>{{i.gateway_id}}</td>
+                <td>{{i.ad.file_name}}</td>
+                <td>{{i.screen.type}}</td>
+                <td>{{i.cost}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+</section>
+{% endblock %}

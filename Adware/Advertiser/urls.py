@@ -11,4 +11,5 @@ urlpatterns = [
     path('/handlerequest/<transaction_id>', views.handlerequest),
     path('/wait', views.notify),
     path('/delete', views.delete_ads),
+    path('/all-subscription',views.all_subscription),
 ]

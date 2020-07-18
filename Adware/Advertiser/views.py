@@ -310,3 +310,10 @@ def delete_ads(request):
             return redirect("/adv?info=Ad deleted&msgtype=success")
 
     return redirect("/adv?info=Ad couldn't be deleted&msgtype=error")
+
+
+@login_required
+def all_subscription(request):
+    subs = Subscription.objects.filter(ad__username__in=[request.user])
+
+    return render(request, "Advertiser/subs.html", {"subs":subs})

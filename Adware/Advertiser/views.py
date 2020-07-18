@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import AdMediaForm
 from .models import AdMedia, DisplaysAd
-from Screens.models import Screens, Waitlist, WaitCount
+from Screens.models import Screens, Waitlist, WaitCount, ScreenCost, ScreenStats
 from django.http import HttpResponse
 from django.conf import settings
 from datetime import datetime, timedelta
@@ -39,19 +39,8 @@ def index(request):
             temp=[]
         else:
             temp.append(i)
-    if temp:
-        user_media_pair.append(temp)
-    """"
-    for i in range(1,len(user_media),2):
-        print(user_media[i])
-        user_media_pair.append([user_media[i-1],user_media[i]])
-
-        if i%2==1:
-            user_media_pair.append([user_media[len(user_media)-1],None])
-    if len(user_media)%2==1:
-        user_media_pair.append([user_media[len(user_media)-1],None])
-    """
     print(user_media_pair)
+    print(temp)
     subscription = []
     total_cost = 0
     for sub in DisplaysAd.objects.all():
@@ -63,6 +52,7 @@ def index(request):
                   {'user': str(request.user).split("@")[0],
                    'f1': form,
                    'AdMedia': user_media_pair,
+                   'temp' : temp,
                    'info': msg,
                    'msgtype': msgtype,
                    'total_cost':total_cost,

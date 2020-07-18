@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 import requests
+
+
+base_cost = {'Big':100, 'Medium': 70, 'Small': 40}
 
 
 @login_required
@@ -68,3 +72,75 @@ def get_uuid(x):
         if i.auto_id == x:
             return i.id
     return None
+
+
+def calculate_cost(request):
+    for screen in Screens.objects.all():
+        try:
+            obj = ScreenStats.objects.get(screen=screen)
+        except ScreenStats.DoesNotExist:
+            obj = ScreenStats(screen=screen, queue="", sum=0)
+        queue = list(map(int,obj.queue.split()))
+        sm = obj.sum
+
+        if len(queue)>=10:
+            sm-=queue.pop(0)
+        print(queue)
+        sm+=screen.ad_available
+        queue.append(screen.ad_available)
+        obj.queue =" ".join(map(str,queue))
+        obj.sum = sm
+        obj.save()
+    update_cost()
+    return HttpResponse('success')
+
+
+def cost_function(key_value):
+    # Add cost function implementation here
+    # key value is avg no. of screens available over last 10 days.
+    result = key_value
+    return result
+
+
+def update_cost():
+    for screen in Screens.objects.all():
+        try:
+
+            obj1 = ScreenCost.objects.get(screen=screen)
+        except ScreenCost.DoesNotExist:
+            print('not')
+            obj1 = ScreenCost(screen=screen, cost=0)
+        try:
+            print('not')
+            obj2 = ScreenStats.objects.get(screen=screen)
+        except ScreenStats.DoesNotExist:
+            obj2 = ScreenStats(screen=screen, queue="", sum=0)
+        ln = len(obj2.queue.split(" "))
+        print(cost_function(obj2.sum / ln))
+        obj1.cost = int(cost_function(obj2.sum/ln))
+        obj1.save()
+
+
+@login_required
+def get_cost(request):
+    id = request.GET.get('id','')
+    if not id:
+        return HttpResponse('0')
+    try:
+        screen_obj = Screens.objects.get(auto_id=id)
+        screencost_obj = ScreenCost.objects.get(screen=screen_obj)
+    except Screens.DoesNotExist:
+        return HttpResponse('0')
+    except ScreenCost.DoesNotExist:
+        return HttpResponse('0')
+    cost = base_cost[screen_obj.type]
+    cost += screencost_obj.cost
+    return HttpResponse(str(cost))
+
+
+
+
+
+
+
+

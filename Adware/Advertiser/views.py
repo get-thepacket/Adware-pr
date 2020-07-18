@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import AdMediaForm
 from .models import AdMedia, DisplaysAd
 from Screens.models import Screens, Waitlist, WaitCount, ScreenCost, ScreenStats
-from Screens.views import get_cost_inner
+from Screens.views import get_cost_inner , calculate_cost
 from django.http import HttpResponse
 from django.conf import settings
 from datetime import datetime, timedelta
@@ -157,7 +157,7 @@ def screen_select(request, ad_id):
     print(query_result)
     total_screens = len(query_result)
     print(total_screens)
-
+    calculate_cost(request)
     return render(request, 'Advertiser/publish.html',
                   {'total_screens': total_screens,
                    'query_result': query_result,

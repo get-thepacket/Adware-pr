@@ -158,3 +158,5 @@ def api(request):
 
 def privacy_policy(request):
     return render(request, 'Advertiser/privacy-policy.html')
+
+

@@ -43,12 +43,9 @@ def index(request):
     print(user_media_pair)
     print(temp)
     subscription = []
-    total_cost = 0
     for sub in DisplaysAd.objects.all():
         if sub.ad.username == request.user:
-            cost = pricing[sub.screen.type]
-            subscription.append((sub, cost))
-            total_cost+=cost
+            subscription.append((sub.ad.file_name,sub.screen.type,sub.screen.description))
     return render(request, "Advertiser/index.html",
                   {'user': str(request.user).split("@")[0],
                    'f1': form,
@@ -56,7 +53,6 @@ def index(request):
                    'temp' : temp,
                    'info': msg,
                    'msgtype': msgtype,
-                   'total_cost':total_cost,
                    'subscription':subscription,
                    })
 

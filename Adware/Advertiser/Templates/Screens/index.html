@@ -50,15 +50,17 @@
                                 <th>Screen Name</th>
                                 <th>Screen Size</th>
                                 <th>Adds Remaining</th>
+                                <th>Profit</th>
                                 <th>Adware API token</th>
                             </tr>
 
-                            {% for screen in screens %}
+                            {% for screen,cost in screens %}
                             <tr>
                               
                                 <td> {{screen.description}} </td>
                                 <td>{{screen.type}}</td>
                                 <td>{{screen.ad_available}}</td>
+                                <td>{{cost}}</td>
                                 <td>
                                     <input value="{{screen.id}}" readonly>
                                     <button href="#" id="Screen{{screen.auto_id}}" class="copy-button{{screen.auto_id}} btn btn-primary" data-clipboard-text="{{screen.id}}" onclick="copy($(this));">Copy</button>

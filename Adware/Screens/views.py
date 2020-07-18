@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from Advertiser.models import *
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
@@ -17,8 +18,12 @@ def index(request):
     msgtype = request.GET.get('msgtype', 'error')
     for screen in Screens.objects.all():
         if request.user == screen.owner:
-            screens.append(screen)
-    #print(uuids)
+            cost = 0
+            for subs in Subscription.objects.all():
+                if subs.screen.id == screen.id:
+                    cost+=subs.cost
+            screens.append([screen,cost])
+    print(screens)
     print(msg)
     print(msgtype)
     return render(request, "Screens/index.html",
@@ -86,9 +91,9 @@ def calculate_cost(request):
         if len(queue)>=10:
             sm-=queue.pop(0)
         print(screen)
-        print(queue)
         sm+=screen.ad_available
         queue.append(screen.ad_available)
+        print(queue)
         obj.queue =" ".join(map(str,queue))
         obj.sum = sm
         obj.save()

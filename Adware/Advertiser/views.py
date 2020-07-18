@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import AdMediaForm
 from .models import AdMedia, DisplaysAd
 from Screens.models import Screens, Waitlist, WaitCount, ScreenCost, ScreenStats
+from Screens.views import get_cost_inner
 from django.http import HttpResponse
 from django.conf import settings
 from datetime import datetime, timedelta
@@ -200,14 +201,7 @@ def publish(request, ad_id, screen_id):
     screen.save()
     display.save()
 
-    if screen.type == 'Big':
-        cost = 100
 
-    elif screen.type == 'Small':
-        cost = 25
-
-    else:
-        cost = 50
 
     for x in range(10):
         # print 10 random values between
@@ -216,7 +210,7 @@ def publish(request, ad_id, screen_id):
                                         + string.digits) for n in range(10)])
 
     print(screen_id)
-
+    cost = get_cost_inner(screen.auto_id)
     param_dict={
         'MID': 'BiDzIl44175596745392',
         'ORDER_ID': str(ra),

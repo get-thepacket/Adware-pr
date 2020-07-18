@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import AdMediaForm
 from .models import AdMedia, DisplaysAd
-from Screens.models import Screens, Waitlist, WaitCount
+from Screens.models import Screens, Waitlist, WaitCount, ScreenCost, ScreenStats
 from django.http import HttpResponse
 from django.conf import settings
 from datetime import datetime, timedelta
@@ -12,7 +12,7 @@ from Paytm import Checksum
 from django.core.mail import send_mail
 from Adware.settings import EMAIL_HOST_USER
 
-MERCHANT_KEY = 'kbzk1DSbJiV_O3p5'
+MERCHANT_KEY = 'GvYRwo%@Vl2Ml19y'
 
 
 """
@@ -218,7 +218,7 @@ def publish(request, ad_id, screen_id):
         cost = 50
 
     param_dict={
-        'MID': 'WorldP64425807474247',
+        'MID': 'BiDzIl44175596745392',
         'ORDER_ID': str(ad_id),
         'TXN_AMOUNT': str(cost),
         'CUST_ID': str(ad_id),
@@ -276,7 +276,7 @@ def notify(request):
         waitlist_obj.user_waiting = user
         waitlist_obj.screen = screen
         waitlist_obj.save()
-        send_mail('Adware', 'You will be notified if screen becomes empty', EMAIL_HOST_USER, [user], fail_silently=False)
+        #send_mail('Adware', 'You will be notified if screen becomes empty', EMAIL_HOST_USER, [user], fail_silently=False)
         return HttpResponse('success')
 
     return HttpResponse('already')

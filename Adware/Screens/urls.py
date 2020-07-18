@@ -5,5 +5,5 @@ urlpatterns = [
     path('', views.index),
     path('/new/', views.new_scr),
     path('/dis',views.display),
-
+    path('/cost',views.calculate_cost)
 ]

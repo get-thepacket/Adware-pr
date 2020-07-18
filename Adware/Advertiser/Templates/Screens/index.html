@@ -61,7 +61,7 @@
                                 <td>{{screen.ad_available}}</td>
                                 <td>
                                     <input value="{{screen.id}}" readonly>
-                                    <button href="#" id="Screen{{screen.auto_id}}" class="copy-button btn btn-primary" data-clipboard-text="{{screen.id}}" onclick="copy($(this));">Copy</button>
+                                    <button href="#" id="Screen{{screen.auto_id}}" class="copy-button{{screen.auto_id}} btn btn-primary" data-clipboard-text="{{screen.id}}" onclick="copy($(this));">Copy</button>
                                     <!-- <button class="btn" onclick="copyToClipboard('{{screen.id}}')"> -->
                                 </td>
                                 

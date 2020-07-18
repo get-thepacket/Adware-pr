@@ -3,6 +3,8 @@
 {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/static/assets/js/notify.js"></script>
+    <script src="/static/assets/js/getCost.js"></script>
+
 
     <!-- toast message -->
       {% if info %}
@@ -123,8 +125,10 @@
           <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
             <div class="box recommended" data-aos="zoom-in" data-aos-delay="50">
               <h3>{{i.type}}</h3>
-              <h4><sup>$</sup>19<span> / month</span></h4>
-              <ul>
+                <h4 id = "card{{i.auto_id}}"> Rs. NA</h4>
+                <button class="btn btn-primary" id="button-{{i.auto_id}}" href="#" onclick="cost($(this));">get cost</button>
+                <br><br>
+                <ul>
                 <li>Description: {{i.description}}</li>
                 <li>Address: {{i.address}}</li>
                 <li>Landmarks: {{i.landmarks}}</li>

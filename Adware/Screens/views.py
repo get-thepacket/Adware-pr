@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 import requests
 
 
+base_cost = {'Big':100, 'Medium': 70, 'Small': 40}
+
+
 @login_required
 def index(request):
     form = ScreenForm()
@@ -116,6 +119,25 @@ def update_cost():
         print(cost_function(obj2.sum / ln))
         obj1.cost = int(cost_function(obj2.sum/ln))
         obj1.save()
+
+
+@login_required
+def get_cost(request):
+    id = request.GET.get('id','')
+    if not id:
+        return HttpResponse('0')
+    try:
+        screen_obj = Screens.objects.get(auto_id=id)
+        screencost_obj = ScreenCost.objects.get(screen=screen_obj)
+    except Screens.DoesNotExist:
+        return HttpResponse('0')
+    except ScreenCost.DoesNotExist:
+        return HttpResponse('0')
+    cost = base_cost[screen_obj.type]
+    cost += screencost_obj.cost
+    return HttpResponse(str(cost))
+
+
 
 
 

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
@@ -68,3 +69,32 @@ def get_uuid(x):
         if i.auto_id == x:
             return i.id
     return None
+
+
+def calculate_cost(request):
+    for screen in Screens.objects.all():
+        try:
+            obj = ScreenStats.objects.get(screen=screen)
+        except ScreenStats.DoesNotExist:
+            obj = ScreenStats(screen=screen, queue=bytes("",'utf-8'), sum=0)
+            obj.save()
+        queue = list(map(int,obj.queue.split()))
+        sm = obj.sum
+
+        if len(queue)>=10:
+            sm-=queue.pop(0)
+        print(queue)
+        sm+=screen.ad_available
+        queue.append(screen.ad_available)
+        obj.queue = bytes(" ".join(map(str,queue)),'utf-8')
+        obj.sum = sm
+        obj.save()
+
+    return HttpResponse('success')
+
+
+def update_cost():
+    for screen in Screens.objects.all():
+        print(screen)
+
+

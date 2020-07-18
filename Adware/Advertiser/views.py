@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import AdMediaForm
 from .models import AdMedia, DisplaysAd
-from Screens.models import Screens, Waitlist, WaitCount
+from Screens.models import Screens, Waitlist, WaitCount, ScreenCost, ScreenStats
 from django.http import HttpResponse
 from django.conf import settings
 from datetime import datetime, timedelta

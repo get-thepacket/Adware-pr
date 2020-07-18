@@ -23,3 +23,13 @@ class DisplaysAd(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
 
+class Subscription(models.Model):
+    transaction_id = models.AutoField(primary_key=True)
+    gateway_id = models.CharField(max_length=50, default="123456")
+    screen = models.ForeignKey(Screens, on_delete=models.CASCADE)
+    ad = models.ForeignKey(AdMedia, on_delete=models.CASCADE)
+    cost = models.IntegerField()
+    transaction_date = models.DateTimeField(auto_now_add=True)
+
+
+

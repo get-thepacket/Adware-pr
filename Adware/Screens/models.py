@@ -28,3 +28,14 @@ class WaitCount(models.Model):
     screen = models.ForeignKey(Screens, on_delete=models.CASCADE)
     count = models.IntegerField()
 
+
+class ScreenStats(models.Model):
+    screen = models.ForeignKey(Screens, on_delete=models.CASCADE)
+    queue = models.BinaryField()
+
+
+class ScreenCost(models.Model):
+    screen = models.ForeignKey(Screens, on_delete=models.CASCADE)
+    cost = models.IntegerField()
+
+

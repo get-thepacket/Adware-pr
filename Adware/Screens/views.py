@@ -76,8 +76,7 @@ def calculate_cost(request):
         try:
             obj = ScreenStats.objects.get(screen=screen)
         except ScreenStats.DoesNotExist:
-            obj = ScreenStats(screen=screen, queue=bytes("",'utf-8'), sum=0)
-            obj.save()
+            obj = ScreenStats(screen=screen, queue="", sum=0)
         queue = list(map(int,obj.queue.split()))
         sm = obj.sum
 
@@ -86,15 +85,40 @@ def calculate_cost(request):
         print(queue)
         sm+=screen.ad_available
         queue.append(screen.ad_available)
-        obj.queue = bytes(" ".join(map(str,queue)),'utf-8')
+        obj.queue =" ".join(map(str,queue))
         obj.sum = sm
         obj.save()
-
+    update_cost()
     return HttpResponse('success')
+
+
+def cost_function(key_value):
+    # Add cost function implementation here
+    # key value is avg no. of screens available over last 10 days.
+    result = key_value
+    return result
 
 
 def update_cost():
     for screen in Screens.objects.all():
-        print(screen)
+        try:
+
+            obj1 = ScreenCost.objects.get(screen=screen)
+        except ScreenCost.DoesNotExist:
+            print('not')
+            obj1 = ScreenCost(screen=screen, cost=0)
+        try:
+            print('not')
+            obj2 = ScreenStats.objects.get(screen=screen)
+        except ScreenStats.DoesNotExist:
+            obj2 = ScreenStats(screen=screen, queue="", sum=0)
+        ln = len(obj2.queue.split(" "))
+        print(cost_function(obj2.sum / ln))
+        obj1.cost = int(cost_function(obj2.sum/ln))
+        obj1.save()
+
+
+
+
 
 

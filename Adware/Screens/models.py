@@ -31,7 +31,7 @@ class WaitCount(models.Model):
 
 class ScreenStats(models.Model):
     screen = models.ForeignKey(Screens, on_delete=models.CASCADE)
-    queue = models.BinaryField()
+    queue = models.CharField(max_length=200)
     sum = models.IntegerField(default=0)
 
 

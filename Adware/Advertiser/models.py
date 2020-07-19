@@ -30,6 +30,7 @@ class Subscription(models.Model):
     ad = models.ForeignKey(AdMedia, on_delete=models.CASCADE)
     cost = models.IntegerField()
     transaction_date = models.DateTimeField(auto_now_add=True)
+    transaction_status = models.CharField(max_length=50, default="Transaction Failed")
 
 
 

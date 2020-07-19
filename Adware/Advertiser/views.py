@@ -243,6 +243,8 @@ def handlerequest(request, transaction_id):
             ad = sub_obj.ad
             disAd = DisplaysAd(screen=screen,ad=ad)
             disAd.save()
+            sub_obj.transaction_status = "Transaction Successful"
+            sub_obj.save()
             screen.ad_available = screen.ad_available - 1
             screen.save()
             print('order successful')

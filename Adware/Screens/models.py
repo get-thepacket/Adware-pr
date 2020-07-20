@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 
 class Screens(models.Model):
     category = (
-        ('Big', 'More than X area'),
-        ('Medium', 'Between X and Y'),
-        ('Small', 'Less than Y')
+        ('Big', 'More than 100 sq. ft.'),
+        ('Medium', 'Between 50 and 100 sq. ft.'),
+        ('Small', 'Less than 50 sq. ft.')
     )
     auto_id = models.AutoField(primary_key=True)
     id = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)

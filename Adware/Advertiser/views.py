@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from Paytm import Checksum
 import random
 import string
+import pickle
 from django.core.mail import send_mail
 from Adware.settings import EMAIL_HOST_USER
 
@@ -27,6 +28,7 @@ pricing = {'Big': 100, "Medium": 50, "Small": 30}
 
 @login_required
 def index(request):
+    schedule_expire_call()
     form = AdMediaForm()
     user_media = AdMedia.objects.filter(username=request.user)
     msg = request.GET.get('info', '')
@@ -40,8 +42,8 @@ def index(request):
             temp=[]
         else:
             temp.append(i)
-    print(user_media_pair)
-    print(temp)
+    #print(user_media_pair)
+    #print(temp)
     subscription = []
     for sub in DisplaysAd.objects.all():
         if sub.ad.username == request.user:
@@ -253,10 +255,10 @@ def handlerequest(request, transaction_id):
     return render(request, 'Advertiser/paymentstatus.html', {'response': response_dict})
 
 
-@login_required
-def expire(request):
-    if request.user.is_superuser:
-        expiration_time = 0    # days
+
+def expire():
+    if True:
+        expiration_time = 4    # days
         query = DisplaysAd.objects.all()
         for obj in query:
             age = timezone.now() - obj.date_created
@@ -266,8 +268,6 @@ def expire(request):
                 screen.ad_available = screen.ad_available + 1
                 screen.save()
                 obj.delete()
-        return HttpResponse('expired subscriptions removed')
-    return redirect('/')
 
 
 @login_required
@@ -316,3 +316,29 @@ def delete_ads(request):
 def all_subscription(request):
     subs = Subscription.objects.filter(ad__username__in=[request.user]).order_by('-transaction_id')
     return render(request, "Advertiser/subs.html", {"subs":subs})
+
+
+def schedule_expire_call():
+
+    gap_time = 5 # minutes
+    function_call_flag = False
+    try:
+        fin=open('expire_time.dat','rb')
+        last_call = pickle.load(fin)
+        fin.close()
+        time_now = datetime.now()
+        gap = (time_now - last_call).seconds
+        gap = gap // 60
+        print(type(gap),gap)
+        if gap >= gap_time:
+            function_call_flag = True
+    except FileNotFoundError:
+        function_call_flag = True
+    if function_call_flag:
+        expire()
+        fout = open('expire_time.dat','wb')
+        time_now = datetime.now()
+        pickle.dump(time_now,fout)
+        fout.close()
+        print("Function Executed")
+

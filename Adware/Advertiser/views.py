@@ -29,6 +29,7 @@ pricing = {'Big': 100, "Medium": 50, "Small": 30}
 @login_required
 def index(request):
     schedule_expire_call()
+    schedule_cost_queue()
     form = AdMediaForm()
     user_media = AdMedia.objects.filter(username=request.user)
     msg = request.GET.get('info', '')
@@ -155,7 +156,7 @@ def screen_select(request, ad_id):
     print(query_result)
     total_screens = len(query_result)
     print(total_screens)
-    calculate_cost(request)
+    #calculate_cost(request)
     return render(request, 'Advertiser/publish.html',
                   {'total_screens': total_screens,
                    'query_result': query_result,
@@ -337,6 +338,31 @@ def schedule_expire_call():
     if function_call_flag:
         expire()
         fout = open('expire_time.dat','wb')
+        time_now = datetime.now()
+        pickle.dump(time_now,fout)
+        fout.close()
+        print("Function Executed")
+
+
+def schedule_cost_queue():
+
+    gap_time = 60*4 # minutes
+    function_call_flag = False
+    try:
+        fin=open('queue_time.dat','rb')
+        last_call = pickle.load(fin)
+        fin.close()
+        time_now = datetime.now()
+        gap = (time_now - last_call).seconds
+        gap = gap // 60
+        print(type(gap),gap)
+        if gap >= gap_time:
+            function_call_flag = True
+    except FileNotFoundError:
+        function_call_flag = True
+    if function_call_flag:
+        calculate_cost()
+        fout = open('queue_time.dat','wb')
         time_now = datetime.now()
         pickle.dump(time_now,fout)
         fout.close()

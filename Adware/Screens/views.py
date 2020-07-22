@@ -79,7 +79,7 @@ def get_uuid(x):
     return None
 
 
-def calculate_cost(request):
+def calculate_cost():
     for screen in Screens.objects.all():
         try:
             obj = ScreenStats.objects.get(screen=screen)
@@ -98,7 +98,6 @@ def calculate_cost(request):
         obj.sum = sm
         obj.save()
     update_cost()
-    return HttpResponse('success')
 
 
 def cost_function(type , key_value):

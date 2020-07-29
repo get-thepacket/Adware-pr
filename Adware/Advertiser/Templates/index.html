@@ -32,7 +32,7 @@
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
+  <script src="/static/assets/js/validate.js"></script>
   <!-- Template Main CSS File -->
   <link href="../static/assets/css/style.css" rel="stylesheet">
 
@@ -137,10 +137,11 @@
         {{ f1.password1|as_crispy_field }}
         {{ f1.password2|as_crispy_field }}
         {{f1.type|as_crispy_field}}
-        
+        <p id="validate-data"></p>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button name = "signup" type="submit" class="btn btn-primary">Sign Up</button>
+          <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button href="#" class="btn btn-primary" onclick="validate(); return false;">Sign Up</button>
+          <button name="signup" type="submit" id="form-button" style="display: none;"> Sign Up</button>
         </div>
       </div>
     </div>

@@ -8,11 +8,11 @@ function copy($this) {
 
     var element = document.getElementById(id);
     clipboard.on('success', function(e) {
-        element.value="copied!!";
-        element.innerHTML="copied!!";
+        //element.value="copied!!";
+        //element.innerHTML="copied!!";
         setTimeout(function() {
-            document.getElementById(id).value="copy";
-            document.getElementById(id).innerHTML="copy";
+            document.getElementById(id).value="Copy";
+            document.getElementById(id).innerHTML="Copy";
     }, 1000);
   });
 
